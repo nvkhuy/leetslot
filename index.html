@@ -1,0 +1,2650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#F5F5F7" />
+  <link rel="icon" type="image/svg+xml" href="./assets/icon.svg" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon.png" />
+  <title>Coding Patterns — Randomizer</title>
+  <style>
+    :root {
+      /* Official Apple Colors */
+      --blue: #0066CC;
+      --blue-hover: #0055B3;
+      --blue-soft: rgba(0, 102, 204, 0.09);
+      --white: #FFFFFF;
+      --gray: #F5F5F7;
+      --black: #1D1D1F;
+      --secondary: rgba(29, 29, 31, 0.58);
+      --tertiary: rgba(29, 29, 31, 0.42);
+      --hairline: rgba(29, 29, 31, 0.08);
+      --hairline-strong: rgba(29, 29, 31, 0.14);
+
+      /* Apple Radii & Shadows */
+      --radius-lg: 20px;
+      --radius-md: 12px;
+      --radius-pill: 980px;
+      --shadow-card: 0 2px 14px rgba(29, 29, 31, 0.045), 0 1px 2px rgba(29, 29, 31, 0.03);
+      --shadow-elevated: 0 10px 30px rgba(29, 29, 31, 0.07), 0 1px 3px rgba(29, 29, 31, 0.04);
+
+      /* Apple San Francisco Typography */
+      --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --font-text: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      color-scheme: light;
+    }
+
+    body {
+      font-family: var(--font-text);
+      color: var(--black);
+      background-color: var(--gray);
+      min-height: 100vh;
+      line-height: 1.47;
+      letter-spacing: -0.011em;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding: 40px 20px 72px;
+    }
+
+    .container {
+      max-width: 840px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .brand-eyebrow {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--blue);
+      letter-spacing: -0.008em;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 4.2vw, 38px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.08;
+      color: var(--black);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .subtle-btn {
+      background: var(--white);
+      color: var(--black);
+      border: 1px solid var(--hairline-strong);
+      border-radius: var(--radius-pill);
+      padding: 7px 14px;
+      font-family: var(--font-text);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.16s ease, border-color 0.16s ease, color 0.16s ease;
+    }
+
+    .subtle-btn:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+
+    /* Cards */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      padding: 24px;
+      margin-bottom: 18px;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--secondary);
+    }
+
+    /* Mode Selector */
+    .mode-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 680px) {
+      .mode-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .mode-btn {
+      text-align: left;
+      background: var(--gray);
+      border: 1px solid transparent;
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      cursor: pointer;
+      font-family: var(--font-text);
+      color: var(--black);
+      transition: background 0.16s ease, border-color 0.16s ease, color 0.16s ease, transform 0.12s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .mode-btn:hover {
+      background: rgba(29, 29, 31, 0.06);
+    }
+
+    .mode-btn.active {
+      background: var(--blue);
+      color: var(--white);
+    }
+
+    .mode-btn-title {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+    }
+
+    .mode-btn-sub {
+      font-size: 12px;
+      color: var(--secondary);
+      line-height: 1.3;
+    }
+
+    .mode-btn.active .mode-btn-sub {
+      color: rgba(255, 255, 255, 0.84);
+    }
+
+    /* Filter Blocks */
+    .filter-block {
+      border-top: 1px solid var(--hairline);
+      padding-top: 18px;
+      margin-top: 18px;
+    }
+
+    .filter-block.hidden {
+      display: none;
+    }
+
+    .filter-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .mini-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .text-btn {
+      background: none;
+      border: none;
+      color: var(--blue);
+      font-family: var(--font-text);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .text-btn:hover {
+      text-decoration: underline;
+    }
+
+    /* Chips */
+    .chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      background: var(--gray);
+      color: var(--black);
+      border: 1px solid transparent;
+      border-radius: var(--radius-pill);
+      padding: 7px 13px;
+      font-family: var(--font-text);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+      user-select: none;
+    }
+
+    .chip:hover {
+      background: rgba(29, 29, 31, 0.08);
+    }
+
+    .chip.selected {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .chip-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      opacity: 0.55;
+    }
+
+    .chip-count {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--secondary);
+    }
+
+    .chip.selected .chip-count {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .diff-chip {
+      padding: 8px 18px;
+      font-size: 13.5px;
+      font-weight: 600;
+    }
+
+    /* Controls Bar */
+    .controls-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      border-top: 1px solid var(--hairline);
+      padding-top: 18px;
+      margin-top: 18px;
+    }
+
+    .control-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .segmented {
+      display: inline-flex;
+      background: var(--gray);
+      border-radius: var(--radius-pill);
+      padding: 3px;
+    }
+
+    .seg-btn {
+      border: none;
+      background: transparent;
+      color: var(--secondary);
+      font-family: var(--font-text);
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .seg-btn.active {
+      background: var(--white);
+      color: var(--black);
+      box-shadow: 0 1px 3px rgba(29, 29, 31, 0.12);
+    }
+
+    .toggle-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--black);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .toggle-label input {
+      accent-color: var(--blue);
+      width: 15px;
+      height: 15px;
+      cursor: pointer;
+    }
+
+    /* Roll Footer */
+    .roll-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .pool-status {
+      font-size: 13.5px;
+      color: var(--secondary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .pool-count {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      color: var(--black);
+      background: var(--gray);
+      border-radius: 7px;
+      padding: 2px 8px;
+      font-size: 12.5px;
+    }
+
+    .kbd-hint {
+      font-size: 12.5px;
+      color: var(--tertiary);
+    }
+
+    .roll-btn {
+      background: var(--blue);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius-pill);
+      padding: 12px 24px;
+      font-family: var(--font-text);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.16s ease, transform 0.12s ease, opacity 0.15s ease;
+    }
+
+    .roll-btn:hover:not(:disabled) {
+      background: var(--blue-hover);
+    }
+
+    .roll-btn:active:not(:disabled) {
+      transform: scale(0.98);
+    }
+
+    .roll-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .shuffle-icon {
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .roll-btn.rolling .shuffle-icon {
+      transform: rotate(180deg);
+    }
+
+    /* Result Stage */
+    .result-stage {
+      margin-bottom: 18px;
+    }
+
+    .empty-stage {
+      background: var(--white);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-lg);
+      padding: 44px 24px;
+      text-align: center;
+      color: var(--secondary);
+    }
+
+    .empty-stage-title {
+      font-family: var(--font-display);
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--black);
+      margin-bottom: 4px;
+    }
+
+    .result-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .question-card {
+      background: var(--white);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-elevated);
+      padding: 26px;
+      transition: opacity 0.16s ease, transform 0.16s ease;
+    }
+
+    .question-card.shuffling {
+      opacity: 0.65;
+      transform: translateY(2px);
+    }
+
+    .rolled-meta {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .badge {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 11px;
+      border-radius: var(--radius-pill);
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .badge-cat {
+      background: var(--gray);
+      color: var(--black);
+    }
+
+    .badge-diff-Easy {
+      background: var(--white);
+      color: var(--black);
+      border: 1px solid var(--hairline-strong);
+    }
+
+    .badge-diff-Medium {
+      background: var(--blue-soft);
+      color: var(--blue);
+    }
+
+    .badge-diff-Hard {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .badge-mono {
+      background: var(--gray);
+      color: var(--secondary);
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 500;
+    }
+
+    .question-title {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 3vw, 28px);
+      font-weight: 700;
+      letter-spacing: -0.028em;
+      line-height: 1.18;
+      color: var(--black);
+      margin-bottom: 5px;
+    }
+
+    .question-subtitle {
+      font-size: 14.5px;
+      color: var(--secondary);
+      margin-bottom: 20px;
+    }
+
+    .card-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      padding-top: 16px;
+      border-top: 1px solid var(--hairline);
+    }
+
+    .primary-link {
+      background: var(--blue);
+      color: var(--white);
+      text-decoration: none;
+      border-radius: var(--radius-pill);
+      padding: 10px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -0.012em;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.16s ease;
+    }
+
+    .primary-link:hover {
+      background: var(--blue-hover);
+    }
+
+    .secondary-link {
+      color: var(--blue);
+      background: var(--blue-soft);
+      text-decoration: none;
+      border-radius: var(--radius-pill);
+      padding: 10px 15px;
+      font-size: 13.5px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: background 0.15s ease;
+    }
+
+    .secondary-link:hover {
+      background: rgba(0, 102, 204, 0.15);
+    }
+
+    /* History Strip */
+    .history-card {
+      background: var(--white);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      padding: 16px 20px;
+      margin-bottom: 18px;
+    }
+
+    .history-card.hidden {
+      display: none;
+    }
+
+    .history-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 10px;
+    }
+
+    .history-chip {
+      background: var(--gray);
+      border: none;
+      border-radius: var(--radius-pill);
+      padding: 6px 12px;
+      font-family: var(--font-text);
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--black);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .history-chip:hover {
+      background: var(--blue-soft);
+      color: var(--blue);
+    }
+
+    /* Browse Drawer */
+    .browse-card {
+      background: var(--white);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+
+    .browse-toggle {
+      width: 100%;
+      background: var(--white);
+      border: none;
+      padding: 18px 24px;
+      font-family: var(--font-text);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      color: var(--black);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-align: left;
+      transition: background 0.15s ease;
+    }
+
+    .browse-toggle:hover {
+      background: rgba(29, 29, 31, 0.02);
+    }
+
+    .browse-chevron {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--blue);
+    }
+
+    .browse-body {
+      border-top: 1px solid var(--hairline);
+      padding: 18px 24px 24px;
+      display: none;
+    }
+
+    .browse-body.open {
+      display: block;
+    }
+
+    .search-input {
+      width: 100%;
+      background: var(--gray);
+      border: 1px solid transparent;
+      border-radius: var(--radius-md);
+      padding: 11px 15px;
+      font-family: var(--font-text);
+      font-size: 14px;
+      color: var(--black);
+      margin-bottom: 20px;
+      outline: none;
+      transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .search-input:focus {
+      background: var(--white);
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px var(--blue-soft);
+    }
+
+    .cat-group {
+      margin-bottom: 22px;
+    }
+
+    .cat-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .cat-group-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--hairline-strong);
+    }
+
+    .cat-group-title {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      color: var(--black);
+    }
+
+    .cat-group-meta {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--tertiary);
+    }
+
+    .q-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 8px 4px;
+      border-bottom: 1px solid var(--hairline);
+      font-size: 14px;
+    }
+
+    .q-row:last-child {
+      border-bottom: none;
+    }
+
+    .q-row-link {
+      color: var(--black);
+      text-decoration: none;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 0;
+    }
+
+    .q-row-link:hover {
+      color: var(--blue);
+    }
+
+    .q-row-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .mini-diff {
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 2px 9px;
+      border-radius: var(--radius-pill);
+    }
+
+    .mini-diff.Easy {
+      background: var(--white);
+      color: var(--black);
+      border: 1px solid var(--hairline-strong);
+    }
+
+    .mini-diff.Medium {
+      background: var(--blue-soft);
+      color: var(--blue);
+    }
+
+    .mini-diff.Hard {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .mini-lc {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--tertiary);
+      min-width: 44px;
+      text-align: right;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--black);
+      color: var(--white);
+      border-radius: var(--radius-pill);
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 500;
+      box-shadow: var(--shadow-elevated);
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 100;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <span class="brand-eyebrow">19 Categories · 101 LeetCode Problems</span>
+        <h1>Coding Patterns</h1>
+      </div>
+
+      <div class="header-actions">
+        <label class="subtle-btn" title="Load a custom questions.json file">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          Load JSON
+          <input type="file" id="importInput" accept=".json,application/json" hidden />
+        </label>
+      </div>
+    </header>
+
+    <!-- Browse All -->
+    <section class="browse-card">
+      <button class="browse-toggle" id="browseToggle" aria-expanded="false">
+        <span>Browse All Questions</span>
+        <span class="browse-chevron" id="browseArrow">Show</span>
+      </button>
+      <div class="browse-body" id="browseBody">
+        <input type="search" class="search-input" id="searchInput" placeholder="Search by question, LeetCode #, category, or difficulty…" />
+        <div id="browseContent"></div>
+      </div>
+    </section>
+
+    <!-- Randomizer Controls -->
+    <section class="card">
+      <div class="section-label">Randomizer Mode</div>
+
+      <div class="mode-grid" role="tablist">
+        <button class="mode-btn active" data-mode="all" role="tab">
+          <span class="mode-btn-title">All Random</span>
+          <span class="mode-btn-sub">Random category &amp; difficulty</span>
+        </button>
+        <button class="mode-btn" data-mode="category" role="tab">
+          <span class="mode-btn-title">Pick Category</span>
+          <span class="mode-btn-sub">Lock category, random difficulty</span>
+        </button>
+        <button class="mode-btn" data-mode="difficulty" role="tab">
+          <span class="mode-btn-title">Pick Difficulty</span>
+          <span class="mode-btn-sub">Lock difficulty, random category</span>
+        </button>
+        <button class="mode-btn" data-mode="custom" role="tab">
+          <span class="mode-btn-title">Custom</span>
+          <span class="mode-btn-sub">Filter category &amp; difficulty</span>
+        </button>
+      </div>
+
+      <!-- Category Picker -->
+      <div class="filter-block hidden" id="categoryBlock">
+        <div class="filter-head">
+          <span class="section-label" id="catPromptLabel">Categories</span>
+          <div class="mini-actions">
+            <button class="text-btn" id="selectAllCats">Select All</button>
+            <button class="text-btn" id="clearCats">Clear</button>
+          </div>
+        </div>
+        <div class="chip-group" id="categoryChips"></div>
+      </div>
+
+      <!-- Difficulty Picker -->
+      <div class="filter-block hidden" id="difficultyBlock">
+        <div class="filter-head">
+          <span class="section-label" id="diffPromptLabel">Difficulty</span>
+          <div class="mini-actions">
+            <button class="text-btn" id="selectAllDiffs">Select All</button>
+            <button class="text-btn" id="clearDiffs">Clear</button>
+          </div>
+        </div>
+        <div class="chip-group" id="difficultyChips"></div>
+      </div>
+
+      <!-- Secondary Controls -->
+      <div class="controls-bar">
+        <div class="control-group">
+          <div class="segmented" id="countSelector" aria-label="Number of questions to draw">
+            <button class="seg-btn active" data-count="1">1 Question</button>
+            <button class="seg-btn" data-count="3">3 Questions</button>
+            <button class="seg-btn" data-count="5">5 Questions</button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="toggle-label">
+            <input type="checkbox" id="noRepeatsToggle" checked />
+            No repeats
+          </label>
+          <label class="toggle-label" title="Use free LeetCode alternatives for the 3 Premium problems">
+            <input type="checkbox" id="freeOnlyToggle" />
+            Prefer free LeetCode
+          </label>
+        </div>
+      </div>
+
+      <!-- Roll Row -->
+      <div class="roll-row">
+        <div class="pool-status">
+          <span class="pool-count" id="poolCount">101</span>
+          <span id="poolLabel">matching questions</span>
+          <span class="kbd-hint">· Press Space or R</span>
+        </div>
+
+        <button class="roll-btn" id="rollBtn">
+          <svg class="shuffle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 3 21 3 21 8"/>
+            <line x1="4" y1="20" x2="21" y2="3"/>
+            <polyline points="21 16 21 21 16 21"/>
+            <line x1="15" y1="15" x2="21" y2="21"/>
+            <line x1="4" y1="4" x2="9" y2="9"/>
+          </svg>
+          <span id="rollBtnLabel">Roll Question</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Rolled Result Stage -->
+    <section class="result-stage" id="resultStage">
+      <div class="empty-stage">
+        <div class="empty-stage-title">Ready to practice</div>
+        <div>Click <strong>Roll Question</strong> or press <strong>Space</strong> to draw from the pool.</div>
+      </div>
+    </section>
+
+    <!-- Recent Rolls -->
+    <section class="history-card hidden" id="historyCard">
+      <div class="filter-head" style="margin-bottom: 0;">
+        <span class="section-label">Recent Rolls</span>
+        <button class="text-btn" id="resetDeckBtn">Reset Deck</button>
+      </div>
+      <div class="history-list" id="historyList"></div>
+    </section>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script id="embedded-data" type="application/json">{
+  "title": "Coding Interview Patterns",
+  "stats": {
+    "totalCategories": 19,
+    "totalQuestions": 101,
+    "byDifficulty": {
+      "Easy": 25,
+      "Medium": 63,
+      "Hard": 13
+    }
+  },
+  "categories": [
+    {
+      "id": "01",
+      "slug": "two-pointers",
+      "name": "Two Pointers",
+      "questions": [
+        {
+          "id": "01-01",
+          "title": "Pair Sum - Sorted",
+          "leetcodeNumber": 167,
+          "leetcodeTitle": "Two Sum II - Input Array Is Sorted",
+          "url": "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "01-02",
+          "title": "Triplet Sum",
+          "leetcodeNumber": 15,
+          "leetcodeTitle": "3Sum",
+          "url": "https://leetcode.com/problems/3sum/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "01-03",
+          "title": "Is Palindrome Valid",
+          "leetcodeNumber": 125,
+          "leetcodeTitle": "Valid Palindrome",
+          "url": "https://leetcode.com/problems/valid-palindrome/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "01-04",
+          "title": "Largest Container",
+          "leetcodeNumber": 11,
+          "leetcodeTitle": "Container With Most Water",
+          "url": "https://leetcode.com/problems/container-with-most-water/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "01-05",
+          "title": "Shift Zeros to the End",
+          "leetcodeNumber": 283,
+          "leetcodeTitle": "Move Zeroes",
+          "url": "https://leetcode.com/problems/move-zeroes/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "01-06",
+          "title": "Next Lexicographical Sequence",
+          "leetcodeNumber": 31,
+          "leetcodeTitle": "Next Permutation",
+          "url": "https://leetcode.com/problems/next-permutation/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "02",
+      "slug": "hash-maps-and-sets",
+      "name": "Hash Maps And Sets",
+      "questions": [
+        {
+          "id": "02-01",
+          "title": "Pair Sum - Unsorted",
+          "leetcodeNumber": 1,
+          "leetcodeTitle": "Two Sum",
+          "url": "https://leetcode.com/problems/two-sum/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "02-02",
+          "title": "Verify Sudoku Board",
+          "leetcodeNumber": 36,
+          "leetcodeTitle": "Valid Sudoku",
+          "url": "https://leetcode.com/problems/valid-sudoku/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "02-03",
+          "title": "Zero Striping",
+          "leetcodeNumber": 73,
+          "leetcodeTitle": "Set Matrix Zeroes",
+          "url": "https://leetcode.com/problems/set-matrix-zeroes/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "02-04",
+          "title": "Longest Chain of Consecutive Numbers",
+          "leetcodeNumber": 128,
+          "leetcodeTitle": "Longest Consecutive Sequence",
+          "url": "https://leetcode.com/problems/longest-consecutive-sequence/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "02-05",
+          "title": "Geometric Sequence Triplets",
+          "leetcodeNumber": 2367,
+          "leetcodeTitle": "Number of Arithmetic Triplets",
+          "url": "https://leetcode.com/problems/number-of-arithmetic-triplets/",
+          "difficulty": "Easy",
+          "matchType": "similar",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "03",
+      "slug": "linked-lists",
+      "name": "Linked Lists",
+      "questions": [
+        {
+          "id": "03-01",
+          "title": "Linked List Reversal",
+          "leetcodeNumber": 206,
+          "leetcodeTitle": "Reverse Linked List",
+          "url": "https://leetcode.com/problems/reverse-linked-list/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "03-02",
+          "title": "Remove the Kth Last Node From a Linked List",
+          "leetcodeNumber": 19,
+          "leetcodeTitle": "Remove Nth Node From End of List",
+          "url": "https://leetcode.com/problems/remove-nth-node-from-end-of-list/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "03-03",
+          "title": "Linked List Intersection",
+          "leetcodeNumber": 160,
+          "leetcodeTitle": "Intersection of Two Linked Lists",
+          "url": "https://leetcode.com/problems/intersection-of-two-linked-lists/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "03-04",
+          "title": "LRU Cache",
+          "leetcodeNumber": 146,
+          "leetcodeTitle": "LRU Cache",
+          "url": "https://leetcode.com/problems/lru-cache/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "03-05",
+          "title": "Palindromic Linked List",
+          "leetcodeNumber": 234,
+          "leetcodeTitle": "Palindrome Linked List",
+          "url": "https://leetcode.com/problems/palindrome-linked-list/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "03-06",
+          "title": "Flatten a Multi-Level Linked List",
+          "leetcodeNumber": 430,
+          "leetcodeTitle": "Flatten a Multilevel Doubly Linked List",
+          "url": "https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list/",
+          "difficulty": "Medium",
+          "matchType": "similar",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "04",
+      "slug": "fast-and-slow-pointers",
+      "name": "Fast And Slow Pointers",
+      "questions": [
+        {
+          "id": "04-01",
+          "title": "Linked List Loop",
+          "leetcodeNumber": 141,
+          "leetcodeTitle": "Linked List Cycle",
+          "url": "https://leetcode.com/problems/linked-list-cycle/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "04-02",
+          "title": "Linked List Midpoint",
+          "leetcodeNumber": 876,
+          "leetcodeTitle": "Middle of the Linked List",
+          "url": "https://leetcode.com/problems/middle-of-the-linked-list/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "04-03",
+          "title": "Happy Number",
+          "leetcodeNumber": 202,
+          "leetcodeTitle": "Happy Number",
+          "url": "https://leetcode.com/problems/happy-number/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "05",
+      "slug": "sliding-windows",
+      "name": "Sliding Windows",
+      "questions": [
+        {
+          "id": "05-01",
+          "title": "Substring Anagrams",
+          "leetcodeNumber": 438,
+          "leetcodeTitle": "Find All Anagrams in a String",
+          "url": "https://leetcode.com/problems/find-all-anagrams-in-a-string/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "05-02",
+          "title": "Longest Substring With Unique Characters",
+          "leetcodeNumber": 3,
+          "leetcodeTitle": "Longest Substring Without Repeating Characters",
+          "url": "https://leetcode.com/problems/longest-substring-without-repeating-characters/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "05-03",
+          "title": "Longest Uniform Substring After Replacements",
+          "leetcodeNumber": 424,
+          "leetcodeTitle": "Longest Repeating Character Replacement",
+          "url": "https://leetcode.com/problems/longest-repeating-character-replacement/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "06",
+      "slug": "binary-search",
+      "name": "Binary Search",
+      "questions": [
+        {
+          "id": "06-01",
+          "title": "Find the Insertion Index",
+          "leetcodeNumber": 35,
+          "leetcodeTitle": "Search Insert Position",
+          "url": "https://leetcode.com/problems/search-insert-position/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "06-02",
+          "title": "First and Last Occurrences of a Number",
+          "leetcodeNumber": 34,
+          "leetcodeTitle": "Find First and Last Position of Element in Sorted Array",
+          "url": "https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "06-03",
+          "title": "Cutting Wood",
+          "leetcodeNumber": 1891,
+          "leetcodeTitle": "Cutting Ribbons",
+          "url": "https://leetcode.com/problems/cutting-ribbons/",
+          "difficulty": "Medium",
+          "matchType": "similar",
+          "premium": true,
+          "freeAlternative": {
+            "leetcodeNumber": 875,
+            "leetcodeTitle": "Koko Eating Bananas",
+            "url": "https://leetcode.com/problems/koko-eating-bananas/",
+            "difficulty": "Medium"
+          }
+        },
+        {
+          "id": "06-04",
+          "title": "Find the Target in a Rotated Sorted Array",
+          "leetcodeNumber": 33,
+          "leetcodeTitle": "Search in Rotated Sorted Array",
+          "url": "https://leetcode.com/problems/search-in-rotated-sorted-array/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "06-05",
+          "title": "Find the Median From Two Sorted Arrays",
+          "leetcodeNumber": 4,
+          "leetcodeTitle": "Median of Two Sorted Arrays",
+          "url": "https://leetcode.com/problems/median-of-two-sorted-arrays/",
+          "difficulty": "Hard",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "06-06",
+          "title": "Matrix Search",
+          "leetcodeNumber": 74,
+          "leetcodeTitle": "Search a 2D Matrix",
+          "url": "https://leetcode.com/problems/search-a-2d-matrix/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "06-07",
+          "title": "Local Maxima in Array",
+          "leetcodeNumber": 162,
+          "leetcodeTitle": "Find Peak Element",
+          "url": "https://leetcode.com/problems/find-peak-element/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "06-08",
+          "title": "Weighted Random Selection",
+          "leetcodeNumber": 528,
+          "leetcodeTitle": "Random Pick with Weight",
+          "url": "https://leetcode.com/problems/random-pick-with-weight/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "07",
+      "slug": "stacks",
+      "name": "Stacks",
+      "questions": [
+        {
+          "id": "07-01",
+          "title": "Valid Parenthesis Expression",
+          "leetcodeNumber": 20,
+          "leetcodeTitle": "Valid Parentheses",
+          "url": "https://leetcode.com/problems/valid-parentheses/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "07-02",
+          "title": "Next Largest Number to the Right",
+          "leetcodeNumber": 496,
+          "leetcodeTitle": "Next Greater Element I",
+          "url": "https://leetcode.com/problems/next-greater-element-i/",
+          "difficulty": "Easy",
+          "matchType": "similar",
+          "premium": false
+        },
+        {
+          "id": "07-03",
+          "title": "Evaluate Expression",
+          "leetcodeNumber": 224,
+          "leetcodeTitle": "Basic Calculator",
+          "url": "https://leetcode.com/problems/basic-calculator/",
+          "difficulty": "Hard",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "07-04",
+          "title": "Repeated Removal of Adjacent Duplicates",
+          "leetcodeNumber": 1047,
+          "leetcodeTitle": "Remove All Adjacent Duplicates In String",
+          "url": "https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "07-05",
+          "title": "Implement a Queue using Stacks",
+          "leetcodeNumber": 232,
+          "leetcodeTitle": "Implement Queue using Stacks",
+          "url": "https://leetcode.com/problems/implement-queue-using-stacks/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "07-06",
+          "title": "Maximums of Sliding Window",
+          "leetcodeNumber": 239,
+          "leetcodeTitle": "Sliding Window Maximum",
+          "url": "https://leetcode.com/problems/sliding-window-maximum/",
+          "difficulty": "Hard",
+          "matchType": "exact",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "08",
+      "slug": "heaps",
+      "name": "Heaps",
+      "questions": [
+        {
+          "id": "08-01",
+          "title": "K Most Frequent Strings",
+          "leetcodeNumber": 692,
+          "leetcodeTitle": "Top K Frequent Words",
+          "url": "https://leetcode.com/problems/top-k-frequent-words/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "08-02",
+          "title": "Combine Sorted Linked Lists",
+          "leetcodeNumber": 23,
+          "leetcodeTitle": "Merge k Sorted Lists",
+          "url": "https://leetcode.com/problems/merge-k-sorted-lists/",
+          "difficulty": "Hard",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "08-03",
+          "title": "Median of an Integer Stream",
+          "leetcodeNumber": 295,
+          "leetcodeTitle": "Find Median from Data Stream",
+          "url": "https://leetcode.com/problems/find-median-from-data-stream/",
+          "difficulty": "Hard",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "08-04",
+          "title": "Sort a K-Sorted Array",
+          "leetcodeNumber": 703,
+          "leetcodeTitle": "Kth Largest Element in a Stream",
+          "url": "https://leetcode.com/problems/kth-largest-element-in-a-stream/",
+          "difficulty": "Easy",
+          "matchType": "similar",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "09",
+      "slug": "intervals",
+      "name": "Intervals",
+      "questions": [
+        {
+          "id": "09-01",
+          "title": "Merge Overlapping Intervals",
+          "leetcodeNumber": 56,
+          "leetcodeTitle": "Merge Intervals",
+          "url": "https://leetcode.com/problems/merge-intervals/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "09-02",
+          "title": "Identify All Interval Overlaps",
+          "leetcodeNumber": 986,
+          "leetcodeTitle": "Interval List Intersections",
+          "url": "https://leetcode.com/problems/interval-list-intersections/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "09-03",
+          "title": "Largest Overlap of Intervals",
+          "leetcodeNumber": 253,
+          "leetcodeTitle": "Meeting Rooms II",
+          "url": "https://leetcode.com/problems/meeting-rooms-ii/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": true,
+          "freeAlternative": {
+            "leetcodeNumber": 2406,
+            "leetcodeTitle": "Divide Intervals Into Minimum Number of Groups",
+            "url": "https://leetcode.com/problems/divide-intervals-into-minimum-number-of-groups/",
+            "difficulty": "Medium"
+          }
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "slug": "prefix-sums",
+      "name": "Prefix Sums",
+      "questions": [
+        {
+          "id": "10-01",
+          "title": "Sum Between Range",
+          "leetcodeNumber": 303,
+          "leetcodeTitle": "Range Sum Query - Immutable",
+          "url": "https://leetcode.com/problems/range-sum-query-immutable/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "10-02",
+          "title": "K-Sum Subarrays",
+          "leetcodeNumber": 560,
+          "leetcodeTitle": "Subarray Sum Equals K",
+          "url": "https://leetcode.com/problems/subarray-sum-equals-k/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "10-03",
+          "title": "Product Array Without Current Element",
+          "leetcodeNumber": 238,
+          "leetcodeTitle": "Product of Array Except Self",
+          "url": "https://leetcode.com/problems/product-of-array-except-self/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "11",
+      "slug": "trees",
+      "name": "Trees",
+      "questions": [
+        {
+          "id": "11-01",
+          "title": "Invert Binary Tree",
+          "leetcodeNumber": 226,
+          "leetcodeTitle": "Invert Binary Tree",
+          "url": "https://leetcode.com/problems/invert-binary-tree/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "11-02",
+          "title": "Balanced Binary Tree Validation",
+          "leetcodeNumber": 110,
+          "leetcodeTitle": "Balanced Binary Tree",
+          "url": "https://leetcode.com/problems/balanced-binary-tree/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "11-03",
+          "title": "Rightmost Nodes of a Binary Tree",
+          "leetcodeNumber": 199,
+          "leetcodeTitle": "Binary Tree Right Side View",
+          "url": "https://leetcode.com/problems/binary-tree-right-side-view/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "11-04",
+          "title": "Widest Binary Tree Level",
+          "leetcodeNumber": 662,
+          "leetcodeTitle": "Maximum Width of Binary Tree",
+          "url": "https://leetcode.com/problems/maximum-width-of-binary-tree/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "11-05",
+          "title": "Binary Search Tree Validation",
+          "leetcodeNumber": 98,
+          "leetcodeTitle": "Validate Binary Search Tree",
+          "url": "https://leetcode.com/problems/validate-binary-search-tree/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "11-06",
+          "title": "Lowest Common Ancestor",
+          "leetcodeNumber": 236,
+          "leetcodeTitle": "Lowest Common Ancestor of a Binary Tree",
+          "url": "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "11-07",
+          "title": "Build Binary Tree From Preorder and Inorder Traversals",
+          "leetcodeNumber": 105,
+          "leetcodeTitle": "Construct Binary Tree from Preorder and Inorder Traversal",
+          "url": "https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "11-08",
+          "title": "Maximum Sum of a Continuous Path in a Binary Tree",
+          "leetcodeNumber": 124,
+          "leetcodeTitle": "Binary Tree Maximum Path Sum",
+          "url": "https://leetcode.com/problems/binary-tree-maximum-path-sum/",
+          "difficulty": "Hard",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "11-09",
+          "title": "Binary Tree Symmetry",
+          "leetcodeNumber": 101,
+          "leetcodeTitle": "Symmetric Tree",
+          "url": "https://leetcode.com/problems/symmetric-tree/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "11-10",
+          "title": "Binary Tree Columns",
+          "leetcodeNumber": 314,
+          "leetcodeTitle": "Binary Tree Vertical Order Traversal",
+          "url": "https://leetcode.com/problems/binary-tree-vertical-order-traversal/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": true,
+          "freeAlternative": {
+            "leetcodeNumber": 987,
+            "leetcodeTitle": "Vertical Order Traversal of a Binary Tree",
+            "url": "https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/",
+            "difficulty": "Hard"
+          }
+        },
+        {
+          "id": "11-11",
+          "title": "Kth Smallest Number in a Binary Search Tree",
+          "leetcodeNumber": 230,
+          "leetcodeTitle": "Kth Smallest Element in a BST",
+          "url": "https://leetcode.com/problems/kth-smallest-element-in-a-bst/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "11-12",
+          "title": "Serialize and Deserialize a Binary Tree",
+          "leetcodeNumber": 297,
+          "leetcodeTitle": "Serialize and Deserialize Binary Tree",
+          "url": "https://leetcode.com/problems/serialize-and-deserialize-binary-tree/",
+          "difficulty": "Hard",
+          "matchType": "exact",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "12",
+      "slug": "tries",
+      "name": "Tries",
+      "questions": [
+        {
+          "id": "12-01",
+          "title": "Design a Trie",
+          "leetcodeNumber": 208,
+          "leetcodeTitle": "Implement Trie",
+          "url": "https://leetcode.com/problems/implement-trie-prefix-tree/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "12-02",
+          "title": "Insert and Search Words with Wildcards",
+          "leetcodeNumber": 211,
+          "leetcodeTitle": "Design Add and Search Words Data Structure",
+          "url": "https://leetcode.com/problems/design-add-and-search-words-data-structure/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "12-03",
+          "title": "Find All Words on a Board",
+          "leetcodeNumber": 212,
+          "leetcodeTitle": "Word Search II",
+          "url": "https://leetcode.com/problems/word-search-ii/",
+          "difficulty": "Hard",
+          "matchType": "exact",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "13",
+      "slug": "graphs",
+      "name": "Graphs",
+      "questions": [
+        {
+          "id": "13-01",
+          "title": "Graph Deep Copy",
+          "leetcodeNumber": 133,
+          "leetcodeTitle": "Clone Graph",
+          "url": "https://leetcode.com/problems/clone-graph/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "13-02",
+          "title": "Count Islands",
+          "leetcodeNumber": 200,
+          "leetcodeTitle": "Number of Islands",
+          "url": "https://leetcode.com/problems/number-of-islands/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "13-03",
+          "title": "Matrix Infection",
+          "leetcodeNumber": 994,
+          "leetcodeTitle": "Rotting Oranges",
+          "url": "https://leetcode.com/problems/rotting-oranges/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "13-04",
+          "title": "Bipartite Graph Validation",
+          "leetcodeNumber": 785,
+          "leetcodeTitle": "Is Graph Bipartite?",
+          "url": "https://leetcode.com/problems/is-graph-bipartite/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "13-05",
+          "title": "Longest Increasing Path",
+          "leetcodeNumber": 329,
+          "leetcodeTitle": "Longest Increasing Path in a Matrix",
+          "url": "https://leetcode.com/problems/longest-increasing-path-in-a-matrix/",
+          "difficulty": "Hard",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "13-06",
+          "title": "Shortest Transformation Sequence",
+          "leetcodeNumber": 127,
+          "leetcodeTitle": "Word Ladder",
+          "url": "https://leetcode.com/problems/word-ladder/",
+          "difficulty": "Hard",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "13-07",
+          "title": "Merging Communities",
+          "leetcodeNumber": 547,
+          "leetcodeTitle": "Number of Provinces",
+          "url": "https://leetcode.com/problems/number-of-provinces/",
+          "difficulty": "Medium",
+          "matchType": "similar",
+          "premium": false
+        },
+        {
+          "id": "13-08",
+          "title": "Prerequisites",
+          "leetcodeNumber": 207,
+          "leetcodeTitle": "Course Schedule",
+          "url": "https://leetcode.com/problems/course-schedule/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "13-09",
+          "title": "Shortest Path",
+          "leetcodeNumber": 743,
+          "leetcodeTitle": "Network Delay Time",
+          "url": "https://leetcode.com/problems/network-delay-time/",
+          "difficulty": "Medium",
+          "matchType": "similar",
+          "premium": false
+        },
+        {
+          "id": "13-10",
+          "title": "Connect the Dots",
+          "leetcodeNumber": 1584,
+          "leetcodeTitle": "Min Cost to Connect All Points",
+          "url": "https://leetcode.com/problems/min-cost-to-connect-all-points/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "14",
+      "slug": "backtracking",
+      "name": "Backtracking",
+      "questions": [
+        {
+          "id": "14-01",
+          "title": "Find All Permutations",
+          "leetcodeNumber": 46,
+          "leetcodeTitle": "Permutations",
+          "url": "https://leetcode.com/problems/permutations/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "14-02",
+          "title": "Find All Subsets",
+          "leetcodeNumber": 78,
+          "leetcodeTitle": "Subsets",
+          "url": "https://leetcode.com/problems/subsets/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "14-03",
+          "title": "N Queens",
+          "leetcodeNumber": 51,
+          "leetcodeTitle": "N-Queens",
+          "url": "https://leetcode.com/problems/n-queens/",
+          "difficulty": "Hard",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "14-04",
+          "title": "Combinations of a Sum",
+          "leetcodeNumber": 39,
+          "leetcodeTitle": "Combination Sum",
+          "url": "https://leetcode.com/problems/combination-sum/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "14-05",
+          "title": "Phone Keypad Combinations",
+          "leetcodeNumber": 17,
+          "leetcodeTitle": "Letter Combinations of a Phone Number",
+          "url": "https://leetcode.com/problems/letter-combinations-of-a-phone-number/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "15",
+      "slug": "dynamic-programming",
+      "name": "Dynamic Programming",
+      "questions": [
+        {
+          "id": "15-01",
+          "title": "Climbing Stairs",
+          "leetcodeNumber": 70,
+          "leetcodeTitle": "Climbing Stairs",
+          "url": "https://leetcode.com/problems/climbing-stairs/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "15-02",
+          "title": "Minimum Coin Combination",
+          "leetcodeNumber": 322,
+          "leetcodeTitle": "Coin Change",
+          "url": "https://leetcode.com/problems/coin-change/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "15-03",
+          "title": "Matrix Pathways",
+          "leetcodeNumber": 62,
+          "leetcodeTitle": "Unique Paths",
+          "url": "https://leetcode.com/problems/unique-paths/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "15-04",
+          "title": "Neighborhood Burglary",
+          "leetcodeNumber": 198,
+          "leetcodeTitle": "House Robber",
+          "url": "https://leetcode.com/problems/house-robber/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "15-05",
+          "title": "Longest Common Subsequence",
+          "leetcodeNumber": 1143,
+          "leetcodeTitle": "Longest Common Subsequence",
+          "url": "https://leetcode.com/problems/longest-common-subsequence/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "15-06",
+          "title": "Longest Palindrome in a String",
+          "leetcodeNumber": 5,
+          "leetcodeTitle": "Longest Palindromic Substring",
+          "url": "https://leetcode.com/problems/longest-palindromic-substring/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "15-07",
+          "title": "Maximum Subarray Sum",
+          "leetcodeNumber": 53,
+          "leetcodeTitle": "Maximum Subarray",
+          "url": "https://leetcode.com/problems/maximum-subarray/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "15-08",
+          "title": "0/1 Knapsack",
+          "leetcodeNumber": 416,
+          "leetcodeTitle": "Partition Equal Subset Sum",
+          "url": "https://leetcode.com/problems/partition-equal-subset-sum/",
+          "difficulty": "Medium",
+          "matchType": "similar",
+          "premium": false
+        },
+        {
+          "id": "15-09",
+          "title": "Largest Square in a Matrix",
+          "leetcodeNumber": 221,
+          "leetcodeTitle": "Maximal Square",
+          "url": "https://leetcode.com/problems/maximal-square/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "16",
+      "slug": "greedy",
+      "name": "Greedy",
+      "questions": [
+        {
+          "id": "16-01",
+          "title": "Jump to the End",
+          "leetcodeNumber": 55,
+          "leetcodeTitle": "Jump Game",
+          "url": "https://leetcode.com/problems/jump-game/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "16-02",
+          "title": "Gas Stations",
+          "leetcodeNumber": 134,
+          "leetcodeTitle": "Gas Station",
+          "url": "https://leetcode.com/problems/gas-station/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "16-03",
+          "title": "Candies",
+          "leetcodeNumber": 135,
+          "leetcodeTitle": "Candy",
+          "url": "https://leetcode.com/problems/candy/",
+          "difficulty": "Hard",
+          "matchType": "exact",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "17",
+      "slug": "sort-and-search",
+      "name": "Sort And Search",
+      "questions": [
+        {
+          "id": "17-01",
+          "title": "Sort Linked List",
+          "leetcodeNumber": 148,
+          "leetcodeTitle": "Sort List",
+          "url": "https://leetcode.com/problems/sort-list/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "17-02",
+          "title": "Sort Array",
+          "leetcodeNumber": 912,
+          "leetcodeTitle": "Sort an Array",
+          "url": "https://leetcode.com/problems/sort-an-array/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "17-03",
+          "title": "Kth Largest Integer",
+          "leetcodeNumber": 215,
+          "leetcodeTitle": "Kth Largest Element in an Array",
+          "url": "https://leetcode.com/problems/kth-largest-element-in-an-array/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "17-04",
+          "title": "Dutch National Flag",
+          "leetcodeNumber": 75,
+          "leetcodeTitle": "Sort Colors",
+          "url": "https://leetcode.com/problems/sort-colors/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "18",
+      "slug": "bit-manipulation",
+      "name": "Bit Manipulation",
+      "questions": [
+        {
+          "id": "18-01",
+          "title": "Hamming Weights of Integers",
+          "leetcodeNumber": 338,
+          "leetcodeTitle": "Counting Bits",
+          "url": "https://leetcode.com/problems/counting-bits/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "18-02",
+          "title": "Lonely Integer",
+          "leetcodeNumber": 136,
+          "leetcodeTitle": "Single Number",
+          "url": "https://leetcode.com/problems/single-number/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "18-03",
+          "title": "Swap Odd and Even Bits",
+          "leetcodeNumber": 190,
+          "leetcodeTitle": "Reverse Bits",
+          "url": "https://leetcode.com/problems/reverse-bits/",
+          "difficulty": "Easy",
+          "matchType": "similar",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "19",
+      "slug": "math-and-geometry",
+      "name": "Math And Geometry",
+      "questions": [
+        {
+          "id": "19-01",
+          "title": "Spiral Traversal",
+          "leetcodeNumber": 54,
+          "leetcodeTitle": "Spiral Matrix",
+          "url": "https://leetcode.com/problems/spiral-matrix/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "19-02",
+          "title": "Reverse 32-Bit Integer",
+          "leetcodeNumber": 7,
+          "leetcodeTitle": "Reverse Integer",
+          "url": "https://leetcode.com/problems/reverse-integer/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "19-03",
+          "title": "Maximum Collinear Points",
+          "leetcodeNumber": 149,
+          "leetcodeTitle": "Max Points on a Line",
+          "url": "https://leetcode.com/problems/max-points-on-a-line/",
+          "difficulty": "Hard",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "19-04",
+          "title": "The Josephus Problem",
+          "leetcodeNumber": 1823,
+          "leetcodeTitle": "Find the Winner of the Circular Game",
+          "url": "https://leetcode.com/problems/find-the-winner-of-the-circular-game/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "19-05",
+          "title": "Triangle Numbers",
+          "leetcodeNumber": 118,
+          "leetcodeTitle": "Pascal's Triangle",
+          "url": "https://leetcode.com/problems/pascals-triangle/",
+          "difficulty": "Easy",
+          "matchType": "similar",
+          "premium": false
+        }
+      ]
+    }
+  ]
+}</script>
+  <script>
+    let rawData = null;
+    let flatQuestions = [];
+
+    const state = {
+      mode: "all",              // 'all' | 'category' | 'difficulty' | 'custom'
+      selectedCats: new Set(),  // category ids
+      selectedDiffs: new Set(), // 'Easy' | 'Medium' | 'Hard'
+      drawCount: 1,             // 1 | 3 | 5
+      noRepeats: true,
+      preferFree: false,
+      seenIds: new Set(),
+      history: [],
+      currentDraw: [],
+      search: ""
+    };
+
+    const $ = (id) => document.getElementById(id);
+
+    function showToast(msg) {
+      const el = $("toast");
+      el.textContent = msg;
+      el.classList.add("show");
+      clearTimeout(el._timer);
+      el._timer = setTimeout(() => el.classList.remove("show"), 2000);
+    }
+
+    async function loadData() {
+      let data = null;
+      if (window.location.protocol.startsWith("http")) {
+        try {
+          const res = await fetch("./questions.json", { cache: "no-store" });
+          if (res.ok) data = await res.json();
+        } catch (_) {}
+      }
+      if (!data) {
+        data = JSON.parse($("embedded-data").textContent);
+      }
+      hydrateData(data);
+    }
+
+    function hydrateData(data) {
+      rawData = data;
+      flatQuestions = [];
+      for (const cat of data.categories) {
+        for (const q of cat.questions) {
+          flatQuestions.push({
+            ...q,
+            categoryId: cat.id,
+            categoryName: cat.name,
+            categorySlug: cat.slug
+          });
+        }
+      }
+
+      state.seenIds.clear();
+      state.history = [];
+      state.currentDraw = [];
+
+      renderCategoryChips();
+      renderDifficultyChips();
+      updatePoolStatus();
+      renderBrowse();
+      renderHistory();
+      renderResult();
+    }
+
+    function getDisplayProblem(q) {
+      if (state.preferFree && q.premium && q.freeAlternative) {
+        return {
+          lcNum: q.freeAlternative.leetcodeNumber,
+          lcTitle: q.freeAlternative.leetcodeTitle,
+          url: q.freeAlternative.url,
+          difficulty: q.freeAlternative.difficulty,
+          isSwappedFree: true
+        };
+      }
+      return {
+        lcNum: q.leetcodeNumber,
+        lcTitle: q.leetcodeTitle,
+        url: q.url,
+        difficulty: q.difficulty,
+        isSwappedFree: false
+      };
+    }
+
+    function getMatchingPool() {
+      return flatQuestions.filter((q) => {
+        if (state.mode === "category" || state.mode === "custom") {
+          if (state.selectedCats.size > 0 && !state.selectedCats.has(q.categoryId)) {
+            return false;
+          }
+        }
+        if (state.mode === "difficulty" || state.mode === "custom") {
+          const effDiff = getDisplayProblem(q).difficulty;
+          if (state.selectedDiffs.size > 0 && !state.selectedDiffs.has(effDiff)) {
+            return false;
+          }
+        }
+        return true;
+      });
+    }
+
+    function pickRandom(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function drawOneFromPool(availablePool) {
+      if (availablePool.length === 0) return null;
+
+      if (state.mode === "category") {
+        const diffs = [...new Set(availablePool.map((q) => getDisplayProblem(q).difficulty))];
+        const rolledDiff = pickRandom(diffs);
+        const sub = availablePool.filter((q) => getDisplayProblem(q).difficulty === rolledDiff);
+        const q = pickRandom(sub);
+        return {
+          question: q,
+          note: `Picked Category · Random Difficulty (${rolledDiff})`
+        };
+      }
+
+      if (state.mode === "difficulty") {
+        const cats = [...new Set(availablePool.map((q) => q.categoryId))];
+        const rolledCatId = pickRandom(cats);
+        const sub = availablePool.filter((q) => q.categoryId === rolledCatId);
+        const q = pickRandom(sub);
+        return {
+          question: q,
+          note: `Picked Difficulty · Random Category (${q.categoryName})`
+        };
+      }
+
+      if (state.mode === "all") {
+        const q = pickRandom(availablePool);
+        return {
+          question: q,
+          note: `All Random · ${q.categoryName} · ${getDisplayProblem(q).difficulty}`
+        };
+      }
+
+      const q = pickRandom(availablePool);
+      return {
+        question: q,
+        note: `Custom Filter · Drawn from ${availablePool.length} matching problems`
+      };
+    }
+
+    function rollQuestions() {
+      const pool = getMatchingPool();
+      if (pool.length === 0) return;
+
+      const btn = $("rollBtn");
+      btn.classList.add("rolling");
+      setTimeout(() => btn.classList.remove("rolling"), 360);
+
+      let workingPool = state.noRepeats
+        ? pool.filter((q) => !state.seenIds.has(q.id))
+        : [...pool];
+
+      let didResetDeck = false;
+      if (workingPool.length === 0) {
+        state.seenIds.clear();
+        workingPool = [...pool];
+        didResetDeck = true;
+      }
+
+      const picks = [];
+      const count = Math.min(state.drawCount, pool.length);
+
+      for (let i = 0; i < count; i++) {
+        if (workingPool.length === 0) {
+          state.seenIds.clear();
+          const chosenIds = new Set(picks.map((p) => p.question.id));
+          workingPool = pool.filter((q) => !chosenIds.has(q.id));
+          didResetDeck = true;
+        }
+        const pick = drawOneFromPool(workingPool);
+        if (!pick) break;
+        picks.push(pick);
+        state.seenIds.add(pick.question.id);
+        workingPool = workingPool.filter((q) => q.id !== pick.question.id);
+        state.history = [pick.question.id, ...state.history.filter((id) => id !== pick.question.id)].slice(0, 10);
+      }
+
+      if (didResetDeck) {
+        showToast("Deck finished — reshuffled");
+      }
+
+      state.currentDraw = picks;
+      renderResult(true);
+      setTimeout(() => {
+        renderResult(false);
+        renderHistory();
+        updatePoolStatus();
+      }, 120);
+    }
+
+    function renderCategoryChips() {
+      const wrap = $("categoryChips");
+      wrap.innerHTML = "";
+      for (const cat of rawData.categories) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "chip" + (state.selectedCats.has(cat.id) ? " selected" : "");
+        btn.innerHTML = `<span class="chip-num">${cat.id}</span><span>${cat.name}</span><span class="chip-count">${cat.questions.length}</span>`;
+        btn.addEventListener("click", () => {
+          if (state.selectedCats.has(cat.id)) state.selectedCats.delete(cat.id);
+          else state.selectedCats.add(cat.id);
+          renderCategoryChips();
+          updatePoolStatus();
+        });
+        wrap.appendChild(btn);
+      }
+    }
+
+    function renderDifficultyChips() {
+      const wrap = $("difficultyChips");
+      wrap.innerHTML = "";
+      const counts = { Easy: 0, Medium: 0, Hard: 0 };
+      for (const q of flatQuestions) {
+        counts[getDisplayProblem(q).difficulty]++;
+      }
+      for (const diff of ["Easy", "Medium", "Hard"]) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "chip diff-chip" + (state.selectedDiffs.has(diff) ? " selected" : "");
+        btn.innerHTML = `<span>${diff}</span><span class="chip-count">${counts[diff]}</span>`;
+        btn.addEventListener("click", () => {
+          if (state.selectedDiffs.has(diff)) state.selectedDiffs.delete(diff);
+          else state.selectedDiffs.add(diff);
+          renderDifficultyChips();
+          updatePoolStatus();
+        });
+        wrap.appendChild(btn);
+      }
+    }
+
+    function updateModeUI() {
+      document.querySelectorAll(".mode-btn").forEach((b) => {
+        b.classList.toggle("active", b.dataset.mode === state.mode);
+      });
+
+      const showCats = state.mode === "category" || state.mode === "custom";
+      const showDiffs = state.mode === "difficulty" || state.mode === "custom";
+
+      $("categoryBlock").classList.toggle("hidden", !showCats);
+      $("difficultyBlock").classList.toggle("hidden", !showDiffs);
+
+      $("catPromptLabel").textContent = state.mode === "category"
+        ? "Categories (difficulty randomized)"
+        : "Categories";
+
+      $("diffPromptLabel").textContent = state.mode === "difficulty"
+        ? "Difficulty (category randomized)"
+        : "Difficulty";
+
+      updatePoolStatus();
+    }
+
+    function updatePoolStatus() {
+      const pool = getMatchingPool();
+      const remaining = state.noRepeats
+        ? pool.filter((q) => !state.seenIds.has(q.id)).length
+        : pool.length;
+
+      $("poolCount").textContent = pool.length;
+      if (pool.length === 0) {
+        $("poolLabel").textContent = "no questions match these filters";
+      } else if (state.noRepeats && remaining < pool.length) {
+        $("poolLabel").textContent = `matching (${remaining} left in deck)`;
+      } else {
+        $("poolLabel").textContent = pool.length === 1 ? "matching question" : "matching questions";
+      }
+
+      $("rollBtn").disabled = pool.length === 0;
+      $("rollBtnLabel").textContent = state.drawCount === 1
+        ? "Roll Question"
+        : `Roll ${Math.min(state.drawCount, Math.max(pool.length, 1))} Questions`;
+    }
+
+    function renderResult(shuffling = false) {
+      const stage = $("resultStage");
+      if (state.currentDraw.length === 0) {
+        stage.innerHTML = `
+          <div class="empty-stage">
+            <div class="empty-stage-title">Ready to practice</div>
+            <div>Click <strong>Roll Question</strong> or press <strong>Space</strong> to draw from the pool.</div>
+          </div>`;
+        return;
+      }
+
+      const list = document.createElement("div");
+      list.className = "result-list";
+
+      for (const item of state.currentDraw) {
+        const q = item.question;
+        const disp = getDisplayProblem(q);
+
+        const card = document.createElement("article");
+        card.className = `question-card${shuffling ? " shuffling" : ""}`;
+
+        const altLinkHtml = (!disp.isSwappedFree && q.premium && q.freeAlternative)
+          ? `<a class="secondary-link" href="${q.freeAlternative.url}" target="_blank" rel="noopener noreferrer">Free Alternative (LC #${q.freeAlternative.leetcodeNumber}) ↗</a>`
+          : "";
+
+        const matchTag = q.matchType === "similar"
+          ? `<span class="badge badge-mono">Similar</span>`
+          : "";
+
+        const premiumTag = (q.premium && !disp.isSwappedFree)
+          ? `<span class="badge badge-mono">Premium</span>`
+          : (disp.isSwappedFree ? `<span class="badge badge-mono">Free Alt</span>` : "");
+
+        const showSubtitle = disp.lcTitle.toLowerCase() !== q.title.toLowerCase();
+
+        card.innerHTML = `
+          <div class="rolled-meta">${item.note}</div>
+          <div class="badge-row">
+            <span class="badge badge-cat">${q.categoryId} · ${q.categoryName}</span>
+            <span class="badge badge-diff-${disp.difficulty}">${disp.difficulty}</span>
+            <span class="badge badge-mono">LC #${disp.lcNum}</span>
+            ${matchTag}
+            ${premiumTag}
+          </div>
+          <h2 class="question-title">${q.title}</h2>
+          <div class="question-subtitle">${showSubtitle ? `LeetCode: ${disp.lcTitle}` : `LeetCode #${disp.lcNum}`}</div>
+          <div class="card-actions">
+            <a class="primary-link" href="${disp.url}" target="_blank" rel="noopener noreferrer">
+              Open on LeetCode
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+            ${altLinkHtml}
+          </div>
+        `;
+
+        list.appendChild(card);
+      }
+
+      stage.innerHTML = "";
+      stage.appendChild(list);
+    }
+
+    function renderHistory() {
+      const card = $("historyCard");
+      const list = $("historyList");
+      if (state.history.length === 0) {
+        card.classList.add("hidden");
+        return;
+      }
+      card.classList.remove("hidden");
+      list.innerHTML = "";
+      for (const qId of state.history) {
+        const q = flatQuestions.find((x) => x.id === qId);
+        if (!q) continue;
+        const disp = getDisplayProblem(q);
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "history-chip";
+        btn.innerHTML = `<span>${q.title}</span><span style="opacity:.5;font-family:var(--font-mono);font-size:11px">#${disp.lcNum}</span>`;
+        btn.addEventListener("click", () => {
+          state.currentDraw = [{ question: q, note: "Reopened from recent rolls" }];
+          renderResult(false);
+          $("resultStage").scrollIntoView({ behavior: "smooth", block: "nearest" });
+        });
+        list.appendChild(btn);
+      }
+    }
+
+    function renderBrowse() {
+      const wrap = $("browseContent");
+      const query = state.search.trim().toLowerCase();
+      wrap.innerHTML = "";
+
+      let shownCount = 0;
+      for (const cat of rawData.categories) {
+        const matching = cat.questions.filter((q) => {
+          if (!query) return true;
+          const disp = getDisplayProblem(q);
+          const hay = `${cat.id} ${cat.name} ${q.title} ${disp.lcTitle} #${disp.lcNum} ${disp.difficulty}`.toLowerCase();
+          return hay.includes(query);
+        });
+        if (matching.length === 0) continue;
+        shownCount += matching.length;
+
+        const group = document.createElement("div");
+        group.className = "cat-group";
+
+        group.innerHTML = `
+          <div class="cat-group-head">
+            <span class="cat-group-title">${cat.id} · ${cat.name}</span>
+            <span class="cat-group-meta">${matching.length} problems</span>
+          </div>
+        `;
+
+        for (const q of matching) {
+          const disp = getDisplayProblem(q);
+          const row = document.createElement("div");
+          row.className = "q-row";
+          row.innerHTML = `
+            <a class="q-row-link" href="${disp.url}" target="_blank" rel="noopener noreferrer">${q.title}</a>
+            <div class="q-row-right">
+              <span class="mini-diff ${disp.difficulty}">${disp.difficulty}</span>
+              <span class="mini-lc">#${disp.lcNum}</span>
+            </div>
+          `;
+          group.appendChild(row);
+        }
+        wrap.appendChild(group);
+      }
+
+      if (shownCount === 0) {
+        wrap.innerHTML = `<div style="text-align:center;color:var(--secondary);padding:18px;font-size:14px;">No questions match “${state.search}”</div>`;
+      }
+    }
+
+    // Event Listeners
+    document.querySelectorAll(".mode-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        state.mode = btn.dataset.mode;
+        updateModeUI();
+      });
+    });
+
+    $("selectAllCats").addEventListener("click", () => {
+      for (const c of rawData.categories) state.selectedCats.add(c.id);
+      renderCategoryChips();
+      updatePoolStatus();
+    });
+
+    $("clearCats").addEventListener("click", () => {
+      state.selectedCats.clear();
+      renderCategoryChips();
+      updatePoolStatus();
+    });
+
+    $("selectAllDiffs").addEventListener("click", () => {
+      ["Easy", "Medium", "Hard"].forEach((d) => state.selectedDiffs.add(d));
+      renderDifficultyChips();
+      updatePoolStatus();
+    });
+
+    $("clearDiffs").addEventListener("click", () => {
+      state.selectedDiffs.clear();
+      renderDifficultyChips();
+      updatePoolStatus();
+    });
+
+    $("countSelector").querySelectorAll(".seg-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        state.drawCount = Number(btn.dataset.count);
+        $("countSelector").querySelectorAll(".seg-btn").forEach((b) => b.classList.toggle("active", b === btn));
+        updatePoolStatus();
+      });
+    });
+
+    $("noRepeatsToggle").addEventListener("change", (e) => {
+      state.noRepeats = e.target.checked;
+      updatePoolStatus();
+    });
+
+    $("freeOnlyToggle").addEventListener("change", (e) => {
+      state.preferFree = e.target.checked;
+      renderDifficultyChips();
+      updatePoolStatus();
+      renderResult(false);
+      renderBrowse();
+    });
+
+    $("rollBtn").addEventListener("click", rollQuestions);
+
+    $("resetDeckBtn").addEventListener("click", () => {
+      state.seenIds.clear();
+      state.history = [];
+      renderHistory();
+      updatePoolStatus();
+      showToast("Session deck reset");
+    });
+
+    $("browseToggle").addEventListener("click", () => {
+      const body = $("browseBody");
+      const open = body.classList.toggle("open");
+      $("browseToggle").setAttribute("aria-expanded", String(open));
+      $("browseArrow").textContent = open ? "Hide" : "Show";
+    });
+
+    $("searchInput").addEventListener("input", (e) => {
+      state.search = e.target.value;
+      renderBrowse();
+    });
+
+    $("importInput").addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const parsed = JSON.parse(reader.result);
+          if (!parsed.categories || !Array.isArray(parsed.categories)) {
+            throw new Error("Invalid format");
+          }
+          hydrateData(parsed);
+          showToast(`Loaded ${file.name}`);
+        } catch (err) {
+          showToast("Invalid JSON file");
+        }
+      };
+      reader.readAsText(file);
+      e.target.value = "";
+    });
+
+    window.addEventListener("keydown", (e) => {
+      const tag = (e.target.tagName || "").toLowerCase();
+      if (tag === "input" || tag === "textarea" || tag === "select") return;
+      if (e.code === "Space" || e.key.toLowerCase() === "r") {
+        if (e.metaKey || e.ctrlKey || e.altKey) return;
+        e.preventDefault();
+        if (!$("rollBtn").disabled) rollQuestions();
+      }
+    });
+
+    loadData();
+  </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <!-- Luminous Apple Blue Figma-style Gradient -->
+    <linearGradient id="slotBody" x1="12%" y1="0%" x2="88%" y2="100%">
+      <stop offset="0%" stop-color="#5CB2FF"/>
+      <stop offset="46%" stop-color="#0A7AFF"/>
+      <stop offset="100%" stop-color="#0066CC"/>
+    </linearGradient>
+
+    <!-- Soft Top Gloss -->
+    <linearGradient id="topGloss" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.42"/>
+      <stop offset="42%" stop-color="#FFFFFF" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#003D82" stop-opacity="0.14"/>
+    </linearGradient>
+
+    <!-- Clean White Reel Window -->
+    <linearGradient id="windowFill" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F2F6FC"/>
+      <stop offset="20%" stop-color="#FFFFFF"/>
+      <stop offset="80%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#EBF1F9"/>
+    </linearGradient>
+
+    <!-- Lever Arm -->
+    <linearGradient id="leverArm" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EFF3F8"/>
+      <stop offset="100%" stop-color="#C8D6E8"/>
+    </linearGradient>
+
+    <!-- Bold Apple Graphite Knob (#1D1D1F) -->
+    <radialGradient id="knobGrad" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#4D4D54"/>
+      <stop offset="55%" stop-color="#1D1D1F"/>
+      <stop offset="100%" stop-color="#111113"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Subtle playful -4 deg tilt, filling nearly the full 1024x1024 canvas -->
+  <g transform="rotate(-4 512 512)">
+    <!-- Chunky Pull Lever on Right -->
+    <path d="M 800 564 L 870 564 Q 918 564 918 516 L 918 334"
+          fill="none" stroke="#0055B3" stroke-width="76" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 800 564 L 870 564 Q 918 564 918 516 L 918 334"
+          fill="none" stroke="url(#leverArm)" stroke-width="38" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Big Chunky Graphite Lever Knob -->
+    <circle cx="918" cy="282" r="88" fill="url(#knobGrad)" stroke="#1D1D1F" stroke-width="14"/>
+    <ellipse cx="890" cy="248" rx="24" ry="15" fill="#FFFFFF" opacity="0.46" transform="rotate(-28 890 248)"/>
+
+    <!-- Massive Rounded Apple Blue Slot Body (fills left-to-center boldly) -->
+    <rect x="44" y="182" width="796" height="660" rx="176"
+          fill="url(#slotBody)" stroke="#0055B3" stroke-width="28"/>
+    <!-- Soft Gloss Layer -->
+    <rect x="60" y="198" width="764" height="628" rx="160" fill="url(#topGloss)"/>
+
+    <!-- Simple Figma Top Specular Pill -->
+    <rect x="148" y="238" width="186" height="36" rx="18" fill="#FFFFFF" opacity="0.44"/>
+    <circle cx="378" cy="256" r="18" fill="#FFFFFF" opacity="0.44"/>
+
+    <!-- Huge Clean White Reel Window -->
+    <rect x="116" y="328" width="652" height="368" rx="100"
+          fill="url(#windowFill)" stroke="#0055B3" stroke-width="22"/>
+
+    <!-- Ultra-Bold, Unmistakable Code Symbols: <  /  > -->
+    <!-- Left: < (#1D1D1F) -->
+    <path d="M 294 438 L 198 512 L 294 586"
+          fill="none" stroke="#1D1D1F" stroke-width="56" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Center: / (#0066CC) -->
+    <line x1="484" y1="416" x2="400" y2="608"
+          stroke="#0066CC" stroke-width="60" stroke-linecap="round"/>
+    <!-- Right: > (#1D1D1F) -->
+    <path d="M 590 438 L 686 512 L 590 586"
+          fill="none" stroke="#1D1D1F" stroke-width="56" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Minimal Bottom Pill Accent -->
+    <rect x="358" y="746" width="168" height="30" rx="15" fill="#FFFFFF" opacity="0.52"/>
+  </g>
+</svg>

@@ -1,0 +1,1175 @@
+{
+  "title": "Coding Interview Patterns",
+  "stats": {
+    "totalCategories": 19,
+    "totalQuestions": 101,
+    "byDifficulty": {
+      "Easy": 25,
+      "Medium": 63,
+      "Hard": 13
+    }
+  },
+  "categories": [
+    {
+      "id": "01",
+      "slug": "two-pointers",
+      "name": "Two Pointers",
+      "questions": [
+        {
+          "id": "01-01",
+          "title": "Pair Sum - Sorted",
+          "leetcodeNumber": 167,
+          "leetcodeTitle": "Two Sum II - Input Array Is Sorted",
+          "url": "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "01-02",
+          "title": "Triplet Sum",
+          "leetcodeNumber": 15,
+          "leetcodeTitle": "3Sum",
+          "url": "https://leetcode.com/problems/3sum/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "01-03",
+          "title": "Is Palindrome Valid",
+          "leetcodeNumber": 125,
+          "leetcodeTitle": "Valid Palindrome",
+          "url": "https://leetcode.com/problems/valid-palindrome/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "01-04",
+          "title": "Largest Container",
+          "leetcodeNumber": 11,
+          "leetcodeTitle": "Container With Most Water",
+          "url": "https://leetcode.com/problems/container-with-most-water/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "01-05",
+          "title": "Shift Zeros to the End",
+          "leetcodeNumber": 283,
+          "leetcodeTitle": "Move Zeroes",
+          "url": "https://leetcode.com/problems/move-zeroes/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "01-06",
+          "title": "Next Lexicographical Sequence",
+          "leetcodeNumber": 31,
+          "leetcodeTitle": "Next Permutation",
+          "url": "https://leetcode.com/problems/next-permutation/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "02",
+      "slug": "hash-maps-and-sets",
+      "name": "Hash Maps And Sets",
+      "questions": [
+        {
+          "id": "02-01",
+          "title": "Pair Sum - Unsorted",
+          "leetcodeNumber": 1,
+          "leetcodeTitle": "Two Sum",
+          "url": "https://leetcode.com/problems/two-sum/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "02-02",
+          "title": "Verify Sudoku Board",
+          "leetcodeNumber": 36,
+          "leetcodeTitle": "Valid Sudoku",
+          "url": "https://leetcode.com/problems/valid-sudoku/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "02-03",
+          "title": "Zero Striping",
+          "leetcodeNumber": 73,
+          "leetcodeTitle": "Set Matrix Zeroes",
+          "url": "https://leetcode.com/problems/set-matrix-zeroes/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "02-04",
+          "title": "Longest Chain of Consecutive Numbers",
+          "leetcodeNumber": 128,
+          "leetcodeTitle": "Longest Consecutive Sequence",
+          "url": "https://leetcode.com/problems/longest-consecutive-sequence/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "02-05",
+          "title": "Geometric Sequence Triplets",
+          "leetcodeNumber": 2367,
+          "leetcodeTitle": "Number of Arithmetic Triplets",
+          "url": "https://leetcode.com/problems/number-of-arithmetic-triplets/",
+          "difficulty": "Easy",
+          "matchType": "similar",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "03",
+      "slug": "linked-lists",
+      "name": "Linked Lists",
+      "questions": [
+        {
+          "id": "03-01",
+          "title": "Linked List Reversal",
+          "leetcodeNumber": 206,
+          "leetcodeTitle": "Reverse Linked List",
+          "url": "https://leetcode.com/problems/reverse-linked-list/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "03-02",
+          "title": "Remove the Kth Last Node From a Linked List",
+          "leetcodeNumber": 19,
+          "leetcodeTitle": "Remove Nth Node From End of List",
+          "url": "https://leetcode.com/problems/remove-nth-node-from-end-of-list/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "03-03",
+          "title": "Linked List Intersection",
+          "leetcodeNumber": 160,
+          "leetcodeTitle": "Intersection of Two Linked Lists",
+          "url": "https://leetcode.com/problems/intersection-of-two-linked-lists/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "03-04",
+          "title": "LRU Cache",
+          "leetcodeNumber": 146,
+          "leetcodeTitle": "LRU Cache",
+          "url": "https://leetcode.com/problems/lru-cache/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "03-05",
+          "title": "Palindromic Linked List",
+          "leetcodeNumber": 234,
+          "leetcodeTitle": "Palindrome Linked List",
+          "url": "https://leetcode.com/problems/palindrome-linked-list/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "03-06",
+          "title": "Flatten a Multi-Level Linked List",
+          "leetcodeNumber": 430,
+          "leetcodeTitle": "Flatten a Multilevel Doubly Linked List",
+          "url": "https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list/",
+          "difficulty": "Medium",
+          "matchType": "similar",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "04",
+      "slug": "fast-and-slow-pointers",
+      "name": "Fast And Slow Pointers",
+      "questions": [
+        {
+          "id": "04-01",
+          "title": "Linked List Loop",
+          "leetcodeNumber": 141,
+          "leetcodeTitle": "Linked List Cycle",
+          "url": "https://leetcode.com/problems/linked-list-cycle/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "04-02",
+          "title": "Linked List Midpoint",
+          "leetcodeNumber": 876,
+          "leetcodeTitle": "Middle of the Linked List",
+          "url": "https://leetcode.com/problems/middle-of-the-linked-list/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "04-03",
+          "title": "Happy Number",
+          "leetcodeNumber": 202,
+          "leetcodeTitle": "Happy Number",
+          "url": "https://leetcode.com/problems/happy-number/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "05",
+      "slug": "sliding-windows",
+      "name": "Sliding Windows",
+      "questions": [
+        {
+          "id": "05-01",
+          "title": "Substring Anagrams",
+          "leetcodeNumber": 438,
+          "leetcodeTitle": "Find All Anagrams in a String",
+          "url": "https://leetcode.com/problems/find-all-anagrams-in-a-string/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "05-02",
+          "title": "Longest Substring With Unique Characters",
+          "leetcodeNumber": 3,
+          "leetcodeTitle": "Longest Substring Without Repeating Characters",
+          "url": "https://leetcode.com/problems/longest-substring-without-repeating-characters/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "05-03",
+          "title": "Longest Uniform Substring After Replacements",
+          "leetcodeNumber": 424,
+          "leetcodeTitle": "Longest Repeating Character Replacement",
+          "url": "https://leetcode.com/problems/longest-repeating-character-replacement/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "06",
+      "slug": "binary-search",
+      "name": "Binary Search",
+      "questions": [
+        {
+          "id": "06-01",
+          "title": "Find the Insertion Index",
+          "leetcodeNumber": 35,
+          "leetcodeTitle": "Search Insert Position",
+          "url": "https://leetcode.com/problems/search-insert-position/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "06-02",
+          "title": "First and Last Occurrences of a Number",
+          "leetcodeNumber": 34,
+          "leetcodeTitle": "Find First and Last Position of Element in Sorted Array",
+          "url": "https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "06-03",
+          "title": "Cutting Wood",
+          "leetcodeNumber": 1891,
+          "leetcodeTitle": "Cutting Ribbons",
+          "url": "https://leetcode.com/problems/cutting-ribbons/",
+          "difficulty": "Medium",
+          "matchType": "similar",
+          "premium": true,
+          "freeAlternative": {
+            "leetcodeNumber": 875,
+            "leetcodeTitle": "Koko Eating Bananas",
+            "url": "https://leetcode.com/problems/koko-eating-bananas/",
+            "difficulty": "Medium"
+          }
+        },
+        {
+          "id": "06-04",
+          "title": "Find the Target in a Rotated Sorted Array",
+          "leetcodeNumber": 33,
+          "leetcodeTitle": "Search in Rotated Sorted Array",
+          "url": "https://leetcode.com/problems/search-in-rotated-sorted-array/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "06-05",
+          "title": "Find the Median From Two Sorted Arrays",
+          "leetcodeNumber": 4,
+          "leetcodeTitle": "Median of Two Sorted Arrays",
+          "url": "https://leetcode.com/problems/median-of-two-sorted-arrays/",
+          "difficulty": "Hard",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "06-06",
+          "title": "Matrix Search",
+          "leetcodeNumber": 74,
+          "leetcodeTitle": "Search a 2D Matrix",
+          "url": "https://leetcode.com/problems/search-a-2d-matrix/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "06-07",
+          "title": "Local Maxima in Array",
+          "leetcodeNumber": 162,
+          "leetcodeTitle": "Find Peak Element",
+          "url": "https://leetcode.com/problems/find-peak-element/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "06-08",
+          "title": "Weighted Random Selection",
+          "leetcodeNumber": 528,
+          "leetcodeTitle": "Random Pick with Weight",
+          "url": "https://leetcode.com/problems/random-pick-with-weight/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "07",
+      "slug": "stacks",
+      "name": "Stacks",
+      "questions": [
+        {
+          "id": "07-01",
+          "title": "Valid Parenthesis Expression",
+          "leetcodeNumber": 20,
+          "leetcodeTitle": "Valid Parentheses",
+          "url": "https://leetcode.com/problems/valid-parentheses/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "07-02",
+          "title": "Next Largest Number to the Right",
+          "leetcodeNumber": 496,
+          "leetcodeTitle": "Next Greater Element I",
+          "url": "https://leetcode.com/problems/next-greater-element-i/",
+          "difficulty": "Easy",
+          "matchType": "similar",
+          "premium": false
+        },
+        {
+          "id": "07-03",
+          "title": "Evaluate Expression",
+          "leetcodeNumber": 224,
+          "leetcodeTitle": "Basic Calculator",
+          "url": "https://leetcode.com/problems/basic-calculator/",
+          "difficulty": "Hard",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "07-04",
+          "title": "Repeated Removal of Adjacent Duplicates",
+          "leetcodeNumber": 1047,
+          "leetcodeTitle": "Remove All Adjacent Duplicates In String",
+          "url": "https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "07-05",
+          "title": "Implement a Queue using Stacks",
+          "leetcodeNumber": 232,
+          "leetcodeTitle": "Implement Queue using Stacks",
+          "url": "https://leetcode.com/problems/implement-queue-using-stacks/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "07-06",
+          "title": "Maximums of Sliding Window",
+          "leetcodeNumber": 239,
+          "leetcodeTitle": "Sliding Window Maximum",
+          "url": "https://leetcode.com/problems/sliding-window-maximum/",
+          "difficulty": "Hard",
+          "matchType": "exact",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "08",
+      "slug": "heaps",
+      "name": "Heaps",
+      "questions": [
+        {
+          "id": "08-01",
+          "title": "K Most Frequent Strings",
+          "leetcodeNumber": 692,
+          "leetcodeTitle": "Top K Frequent Words",
+          "url": "https://leetcode.com/problems/top-k-frequent-words/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "08-02",
+          "title": "Combine Sorted Linked Lists",
+          "leetcodeNumber": 23,
+          "leetcodeTitle": "Merge k Sorted Lists",
+          "url": "https://leetcode.com/problems/merge-k-sorted-lists/",
+          "difficulty": "Hard",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "08-03",
+          "title": "Median of an Integer Stream",
+          "leetcodeNumber": 295,
+          "leetcodeTitle": "Find Median from Data Stream",
+          "url": "https://leetcode.com/problems/find-median-from-data-stream/",
+          "difficulty": "Hard",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "08-04",
+          "title": "Sort a K-Sorted Array",
+          "leetcodeNumber": 703,
+          "leetcodeTitle": "Kth Largest Element in a Stream",
+          "url": "https://leetcode.com/problems/kth-largest-element-in-a-stream/",
+          "difficulty": "Easy",
+          "matchType": "similar",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "09",
+      "slug": "intervals",
+      "name": "Intervals",
+      "questions": [
+        {
+          "id": "09-01",
+          "title": "Merge Overlapping Intervals",
+          "leetcodeNumber": 56,
+          "leetcodeTitle": "Merge Intervals",
+          "url": "https://leetcode.com/problems/merge-intervals/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "09-02",
+          "title": "Identify All Interval Overlaps",
+          "leetcodeNumber": 986,
+          "leetcodeTitle": "Interval List Intersections",
+          "url": "https://leetcode.com/problems/interval-list-intersections/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "09-03",
+          "title": "Largest Overlap of Intervals",
+          "leetcodeNumber": 253,
+          "leetcodeTitle": "Meeting Rooms II",
+          "url": "https://leetcode.com/problems/meeting-rooms-ii/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": true,
+          "freeAlternative": {
+            "leetcodeNumber": 2406,
+            "leetcodeTitle": "Divide Intervals Into Minimum Number of Groups",
+            "url": "https://leetcode.com/problems/divide-intervals-into-minimum-number-of-groups/",
+            "difficulty": "Medium"
+          }
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "slug": "prefix-sums",
+      "name": "Prefix Sums",
+      "questions": [
+        {
+          "id": "10-01",
+          "title": "Sum Between Range",
+          "leetcodeNumber": 303,
+          "leetcodeTitle": "Range Sum Query - Immutable",
+          "url": "https://leetcode.com/problems/range-sum-query-immutable/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "10-02",
+          "title": "K-Sum Subarrays",
+          "leetcodeNumber": 560,
+          "leetcodeTitle": "Subarray Sum Equals K",
+          "url": "https://leetcode.com/problems/subarray-sum-equals-k/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "10-03",
+          "title": "Product Array Without Current Element",
+          "leetcodeNumber": 238,
+          "leetcodeTitle": "Product of Array Except Self",
+          "url": "https://leetcode.com/problems/product-of-array-except-self/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "11",
+      "slug": "trees",
+      "name": "Trees",
+      "questions": [
+        {
+          "id": "11-01",
+          "title": "Invert Binary Tree",
+          "leetcodeNumber": 226,
+          "leetcodeTitle": "Invert Binary Tree",
+          "url": "https://leetcode.com/problems/invert-binary-tree/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "11-02",
+          "title": "Balanced Binary Tree Validation",
+          "leetcodeNumber": 110,
+          "leetcodeTitle": "Balanced Binary Tree",
+          "url": "https://leetcode.com/problems/balanced-binary-tree/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "11-03",
+          "title": "Rightmost Nodes of a Binary Tree",
+          "leetcodeNumber": 199,
+          "leetcodeTitle": "Binary Tree Right Side View",
+          "url": "https://leetcode.com/problems/binary-tree-right-side-view/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "11-04",
+          "title": "Widest Binary Tree Level",
+          "leetcodeNumber": 662,
+          "leetcodeTitle": "Maximum Width of Binary Tree",
+          "url": "https://leetcode.com/problems/maximum-width-of-binary-tree/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "11-05",
+          "title": "Binary Search Tree Validation",
+          "leetcodeNumber": 98,
+          "leetcodeTitle": "Validate Binary Search Tree",
+          "url": "https://leetcode.com/problems/validate-binary-search-tree/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "11-06",
+          "title": "Lowest Common Ancestor",
+          "leetcodeNumber": 236,
+          "leetcodeTitle": "Lowest Common Ancestor of a Binary Tree",
+          "url": "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "11-07",
+          "title": "Build Binary Tree From Preorder and Inorder Traversals",
+          "leetcodeNumber": 105,
+          "leetcodeTitle": "Construct Binary Tree from Preorder and Inorder Traversal",
+          "url": "https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "11-08",
+          "title": "Maximum Sum of a Continuous Path in a Binary Tree",
+          "leetcodeNumber": 124,
+          "leetcodeTitle": "Binary Tree Maximum Path Sum",
+          "url": "https://leetcode.com/problems/binary-tree-maximum-path-sum/",
+          "difficulty": "Hard",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "11-09",
+          "title": "Binary Tree Symmetry",
+          "leetcodeNumber": 101,
+          "leetcodeTitle": "Symmetric Tree",
+          "url": "https://leetcode.com/problems/symmetric-tree/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "11-10",
+          "title": "Binary Tree Columns",
+          "leetcodeNumber": 314,
+          "leetcodeTitle": "Binary Tree Vertical Order Traversal",
+          "url": "https://leetcode.com/problems/binary-tree-vertical-order-traversal/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": true,
+          "freeAlternative": {
+            "leetcodeNumber": 987,
+            "leetcodeTitle": "Vertical Order Traversal of a Binary Tree",
+            "url": "https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/",
+            "difficulty": "Hard"
+          }
+        },
+        {
+          "id": "11-11",
+          "title": "Kth Smallest Number in a Binary Search Tree",
+          "leetcodeNumber": 230,
+          "leetcodeTitle": "Kth Smallest Element in a BST",
+          "url": "https://leetcode.com/problems/kth-smallest-element-in-a-bst/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "11-12",
+          "title": "Serialize and Deserialize a Binary Tree",
+          "leetcodeNumber": 297,
+          "leetcodeTitle": "Serialize and Deserialize Binary Tree",
+          "url": "https://leetcode.com/problems/serialize-and-deserialize-binary-tree/",
+          "difficulty": "Hard",
+          "matchType": "exact",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "12",
+      "slug": "tries",
+      "name": "Tries",
+      "questions": [
+        {
+          "id": "12-01",
+          "title": "Design a Trie",
+          "leetcodeNumber": 208,
+          "leetcodeTitle": "Implement Trie",
+          "url": "https://leetcode.com/problems/implement-trie-prefix-tree/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "12-02",
+          "title": "Insert and Search Words with Wildcards",
+          "leetcodeNumber": 211,
+          "leetcodeTitle": "Design Add and Search Words Data Structure",
+          "url": "https://leetcode.com/problems/design-add-and-search-words-data-structure/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "12-03",
+          "title": "Find All Words on a Board",
+          "leetcodeNumber": 212,
+          "leetcodeTitle": "Word Search II",
+          "url": "https://leetcode.com/problems/word-search-ii/",
+          "difficulty": "Hard",
+          "matchType": "exact",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "13",
+      "slug": "graphs",
+      "name": "Graphs",
+      "questions": [
+        {
+          "id": "13-01",
+          "title": "Graph Deep Copy",
+          "leetcodeNumber": 133,
+          "leetcodeTitle": "Clone Graph",
+          "url": "https://leetcode.com/problems/clone-graph/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "13-02",
+          "title": "Count Islands",
+          "leetcodeNumber": 200,
+          "leetcodeTitle": "Number of Islands",
+          "url": "https://leetcode.com/problems/number-of-islands/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "13-03",
+          "title": "Matrix Infection",
+          "leetcodeNumber": 994,
+          "leetcodeTitle": "Rotting Oranges",
+          "url": "https://leetcode.com/problems/rotting-oranges/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "13-04",
+          "title": "Bipartite Graph Validation",
+          "leetcodeNumber": 785,
+          "leetcodeTitle": "Is Graph Bipartite?",
+          "url": "https://leetcode.com/problems/is-graph-bipartite/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "13-05",
+          "title": "Longest Increasing Path",
+          "leetcodeNumber": 329,
+          "leetcodeTitle": "Longest Increasing Path in a Matrix",
+          "url": "https://leetcode.com/problems/longest-increasing-path-in-a-matrix/",
+          "difficulty": "Hard",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "13-06",
+          "title": "Shortest Transformation Sequence",
+          "leetcodeNumber": 127,
+          "leetcodeTitle": "Word Ladder",
+          "url": "https://leetcode.com/problems/word-ladder/",
+          "difficulty": "Hard",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "13-07",
+          "title": "Merging Communities",
+          "leetcodeNumber": 547,
+          "leetcodeTitle": "Number of Provinces",
+          "url": "https://leetcode.com/problems/number-of-provinces/",
+          "difficulty": "Medium",
+          "matchType": "similar",
+          "premium": false
+        },
+        {
+          "id": "13-08",
+          "title": "Prerequisites",
+          "leetcodeNumber": 207,
+          "leetcodeTitle": "Course Schedule",
+          "url": "https://leetcode.com/problems/course-schedule/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "13-09",
+          "title": "Shortest Path",
+          "leetcodeNumber": 743,
+          "leetcodeTitle": "Network Delay Time",
+          "url": "https://leetcode.com/problems/network-delay-time/",
+          "difficulty": "Medium",
+          "matchType": "similar",
+          "premium": false
+        },
+        {
+          "id": "13-10",
+          "title": "Connect the Dots",
+          "leetcodeNumber": 1584,
+          "leetcodeTitle": "Min Cost to Connect All Points",
+          "url": "https://leetcode.com/problems/min-cost-to-connect-all-points/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "14",
+      "slug": "backtracking",
+      "name": "Backtracking",
+      "questions": [
+        {
+          "id": "14-01",
+          "title": "Find All Permutations",
+          "leetcodeNumber": 46,
+          "leetcodeTitle": "Permutations",
+          "url": "https://leetcode.com/problems/permutations/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "14-02",
+          "title": "Find All Subsets",
+          "leetcodeNumber": 78,
+          "leetcodeTitle": "Subsets",
+          "url": "https://leetcode.com/problems/subsets/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "14-03",
+          "title": "N Queens",
+          "leetcodeNumber": 51,
+          "leetcodeTitle": "N-Queens",
+          "url": "https://leetcode.com/problems/n-queens/",
+          "difficulty": "Hard",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "14-04",
+          "title": "Combinations of a Sum",
+          "leetcodeNumber": 39,
+          "leetcodeTitle": "Combination Sum",
+          "url": "https://leetcode.com/problems/combination-sum/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "14-05",
+          "title": "Phone Keypad Combinations",
+          "leetcodeNumber": 17,
+          "leetcodeTitle": "Letter Combinations of a Phone Number",
+          "url": "https://leetcode.com/problems/letter-combinations-of-a-phone-number/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "15",
+      "slug": "dynamic-programming",
+      "name": "Dynamic Programming",
+      "questions": [
+        {
+          "id": "15-01",
+          "title": "Climbing Stairs",
+          "leetcodeNumber": 70,
+          "leetcodeTitle": "Climbing Stairs",
+          "url": "https://leetcode.com/problems/climbing-stairs/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "15-02",
+          "title": "Minimum Coin Combination",
+          "leetcodeNumber": 322,
+          "leetcodeTitle": "Coin Change",
+          "url": "https://leetcode.com/problems/coin-change/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "15-03",
+          "title": "Matrix Pathways",
+          "leetcodeNumber": 62,
+          "leetcodeTitle": "Unique Paths",
+          "url": "https://leetcode.com/problems/unique-paths/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "15-04",
+          "title": "Neighborhood Burglary",
+          "leetcodeNumber": 198,
+          "leetcodeTitle": "House Robber",
+          "url": "https://leetcode.com/problems/house-robber/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "15-05",
+          "title": "Longest Common Subsequence",
+          "leetcodeNumber": 1143,
+          "leetcodeTitle": "Longest Common Subsequence",
+          "url": "https://leetcode.com/problems/longest-common-subsequence/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "15-06",
+          "title": "Longest Palindrome in a String",
+          "leetcodeNumber": 5,
+          "leetcodeTitle": "Longest Palindromic Substring",
+          "url": "https://leetcode.com/problems/longest-palindromic-substring/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "15-07",
+          "title": "Maximum Subarray Sum",
+          "leetcodeNumber": 53,
+          "leetcodeTitle": "Maximum Subarray",
+          "url": "https://leetcode.com/problems/maximum-subarray/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "15-08",
+          "title": "0/1 Knapsack",
+          "leetcodeNumber": 416,
+          "leetcodeTitle": "Partition Equal Subset Sum",
+          "url": "https://leetcode.com/problems/partition-equal-subset-sum/",
+          "difficulty": "Medium",
+          "matchType": "similar",
+          "premium": false
+        },
+        {
+          "id": "15-09",
+          "title": "Largest Square in a Matrix",
+          "leetcodeNumber": 221,
+          "leetcodeTitle": "Maximal Square",
+          "url": "https://leetcode.com/problems/maximal-square/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "16",
+      "slug": "greedy",
+      "name": "Greedy",
+      "questions": [
+        {
+          "id": "16-01",
+          "title": "Jump to the End",
+          "leetcodeNumber": 55,
+          "leetcodeTitle": "Jump Game",
+          "url": "https://leetcode.com/problems/jump-game/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "16-02",
+          "title": "Gas Stations",
+          "leetcodeNumber": 134,
+          "leetcodeTitle": "Gas Station",
+          "url": "https://leetcode.com/problems/gas-station/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "16-03",
+          "title": "Candies",
+          "leetcodeNumber": 135,
+          "leetcodeTitle": "Candy",
+          "url": "https://leetcode.com/problems/candy/",
+          "difficulty": "Hard",
+          "matchType": "exact",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "17",
+      "slug": "sort-and-search",
+      "name": "Sort And Search",
+      "questions": [
+        {
+          "id": "17-01",
+          "title": "Sort Linked List",
+          "leetcodeNumber": 148,
+          "leetcodeTitle": "Sort List",
+          "url": "https://leetcode.com/problems/sort-list/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "17-02",
+          "title": "Sort Array",
+          "leetcodeNumber": 912,
+          "leetcodeTitle": "Sort an Array",
+          "url": "https://leetcode.com/problems/sort-an-array/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "17-03",
+          "title": "Kth Largest Integer",
+          "leetcodeNumber": 215,
+          "leetcodeTitle": "Kth Largest Element in an Array",
+          "url": "https://leetcode.com/problems/kth-largest-element-in-an-array/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "17-04",
+          "title": "Dutch National Flag",
+          "leetcodeNumber": 75,
+          "leetcodeTitle": "Sort Colors",
+          "url": "https://leetcode.com/problems/sort-colors/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "18",
+      "slug": "bit-manipulation",
+      "name": "Bit Manipulation",
+      "questions": [
+        {
+          "id": "18-01",
+          "title": "Hamming Weights of Integers",
+          "leetcodeNumber": 338,
+          "leetcodeTitle": "Counting Bits",
+          "url": "https://leetcode.com/problems/counting-bits/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "18-02",
+          "title": "Lonely Integer",
+          "leetcodeNumber": 136,
+          "leetcodeTitle": "Single Number",
+          "url": "https://leetcode.com/problems/single-number/",
+          "difficulty": "Easy",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "18-03",
+          "title": "Swap Odd and Even Bits",
+          "leetcodeNumber": 190,
+          "leetcodeTitle": "Reverse Bits",
+          "url": "https://leetcode.com/problems/reverse-bits/",
+          "difficulty": "Easy",
+          "matchType": "similar",
+          "premium": false
+        }
+      ]
+    },
+    {
+      "id": "19",
+      "slug": "math-and-geometry",
+      "name": "Math And Geometry",
+      "questions": [
+        {
+          "id": "19-01",
+          "title": "Spiral Traversal",
+          "leetcodeNumber": 54,
+          "leetcodeTitle": "Spiral Matrix",
+          "url": "https://leetcode.com/problems/spiral-matrix/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "19-02",
+          "title": "Reverse 32-Bit Integer",
+          "leetcodeNumber": 7,
+          "leetcodeTitle": "Reverse Integer",
+          "url": "https://leetcode.com/problems/reverse-integer/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "19-03",
+          "title": "Maximum Collinear Points",
+          "leetcodeNumber": 149,
+          "leetcodeTitle": "Max Points on a Line",
+          "url": "https://leetcode.com/problems/max-points-on-a-line/",
+          "difficulty": "Hard",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "19-04",
+          "title": "The Josephus Problem",
+          "leetcodeNumber": 1823,
+          "leetcodeTitle": "Find the Winner of the Circular Game",
+          "url": "https://leetcode.com/problems/find-the-winner-of-the-circular-game/",
+          "difficulty": "Medium",
+          "matchType": "exact",
+          "premium": false
+        },
+        {
+          "id": "19-05",
+          "title": "Triangle Numbers",
+          "leetcodeNumber": 118,
+          "leetcodeTitle": "Pascal's Triangle",
+          "url": "https://leetcode.com/problems/pascals-triangle/",
+          "difficulty": "Easy",
+          "matchType": "similar",
+          "premium": false
+        }
+      ]
+    }
+  ]
+}

@@ -138,21 +138,35 @@
       color: var(--secondary);
     }
 
-    /* Mode Selector */
+    /* Mode / Filter Selector */
+    .card-top-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .card-top-hint {
+      font-size: 12px;
+      color: var(--tertiary);
+    }
+
     .mode-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 10px;
       margin-top: 12px;
     }
 
-    @media (max-width: 680px) {
+    @media (max-width: 640px) {
       .mode-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
       }
     }
 
     .mode-btn {
+      min-width: 0;
       text-align: left;
       background: var(--gray);
       border: 1px solid transparent;
@@ -164,16 +178,40 @@
       transition: background 0.16s ease, border-color 0.16s ease, color 0.16s ease, transform 0.12s ease;
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 4px;
     }
 
     .mode-btn:hover {
       background: rgba(29, 29, 31, 0.06);
     }
 
+    .mode-btn.has-selection:not(.active) {
+      background: var(--blue-soft);
+      border-color: rgba(0, 102, 204, 0.28);
+      color: var(--black);
+    }
+
+    .mode-btn.has-selection:not(.active):hover {
+      background: rgba(0, 102, 204, 0.14);
+    }
+
     .mode-btn.active {
       background: var(--blue);
+      border-color: var(--blue);
       color: var(--white);
+    }
+
+    .mode-btn.active:hover {
+      background: var(--blue-hover);
+      border-color: var(--blue-hover);
+    }
+
+    .mode-btn-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      width: 100%;
     }
 
     .mode-btn-title {
@@ -182,10 +220,60 @@
       letter-spacing: -0.015em;
     }
 
+    .mode-btn.has-selection:not(.active) .mode-btn-title {
+      color: var(--blue);
+    }
+
+    .mode-btn-right {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .mode-count-pill {
+      display: none;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: var(--radius-pill);
+      background: var(--blue);
+      color: var(--white);
+      line-height: 1.3;
+    }
+
+    .mode-count-pill.visible {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .mode-btn.active .mode-count-pill {
+      background: rgba(255, 255, 255, 0.22);
+      color: var(--white);
+    }
+
+    .mode-chevron {
+      opacity: 0.5;
+      transition: transform 0.18s ease, opacity 0.16s ease;
+      flex-shrink: 0;
+    }
+
+    .mode-btn.has-selection:not(.active) .mode-chevron {
+      color: var(--blue);
+      opacity: 0.8;
+    }
+
+    .mode-btn.active .mode-chevron {
+      transform: rotate(180deg);
+      opacity: 0.9;
+    }
+
     .mode-btn-sub {
       font-size: 12px;
       color: var(--secondary);
       line-height: 1.3;
+      transition: color 0.16s ease;
     }
 
     .mode-btn.active .mode-btn-sub {
@@ -263,6 +351,172 @@
     .chip.selected {
       background: var(--black);
       color: var(--white);
+    }
+
+    .chip.muted:not(.selected) {
+      opacity: 0.45;
+    }
+
+    .chip.muted:not(.selected):hover {
+      opacity: 0.85;
+    }
+
+    /* Active Selection Summary */
+    .criteria-summary {
+      background: var(--gray);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-md);
+      padding: 13px 15px;
+      margin-top: 18px;
+      transition: background 0.16s ease, border-color 0.16s ease;
+    }
+
+    .criteria-summary.has-filters {
+      background: rgba(0, 102, 204, 0.04);
+      border-color: rgba(0, 102, 204, 0.22);
+    }
+
+    .criteria-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .criteria-head-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .criteria-mode-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      background: rgba(29, 29, 31, 0.07);
+      color: var(--secondary);
+      letter-spacing: -0.005em;
+    }
+
+    .criteria-summary.has-filters .criteria-mode-badge {
+      background: var(--blue-soft);
+      color: var(--blue);
+    }
+
+    .criteria-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .criteria-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    @media (max-width: 520px) {
+      .criteria-row {
+        flex-direction: column;
+        gap: 5px;
+      }
+    }
+
+    .criteria-row-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--secondary);
+      min-width: 82px;
+      padding-top: 4px;
+      flex-shrink: 0;
+    }
+
+    .criteria-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .selected-tag {
+      background: var(--white);
+      color: var(--black);
+      border: 1px solid var(--hairline-strong);
+      border-radius: var(--radius-pill);
+      padding: 3px 8px 3px 10px;
+      font-family: var(--font-text);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+    }
+
+    .selected-tag:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+
+    .selected-tag.diff-Medium {
+      background: var(--blue-soft);
+      color: var(--blue);
+      border-color: rgba(0, 102, 204, 0.24);
+    }
+
+    .selected-tag.diff-Medium:hover {
+      background: rgba(0, 102, 204, 0.16);
+      border-color: var(--blue);
+    }
+
+    .selected-tag.diff-Hard {
+      background: var(--black);
+      color: var(--white);
+      border-color: var(--black);
+    }
+
+    .selected-tag.diff-Hard:hover {
+      background: #333336;
+      color: var(--white);
+      border-color: #333336;
+    }
+
+    .selected-tag-x {
+      font-size: 14px;
+      line-height: 1;
+      opacity: 0.55;
+      font-weight: 600;
+    }
+
+    .selected-tag:hover .selected-tag-x {
+      opacity: 1;
+    }
+
+    .any-tag {
+      background: transparent;
+      color: var(--secondary);
+      border: 1px dashed var(--hairline-strong);
+      border-radius: var(--radius-pill);
+      padding: 3px 10px;
+      font-family: var(--font-text);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+    }
+
+    .any-tag:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+      background: var(--white);
     }
 
     .chip-num {
@@ -377,6 +631,11 @@
       border-radius: 7px;
       padding: 2px 8px;
       font-size: 12.5px;
+    }
+
+    .pool-count.empty {
+      background: rgba(215, 0, 21, 0.09);
+      color: #C00011;
     }
 
     .kbd-hint {
@@ -841,24 +1100,39 @@
 
     <!-- Randomizer Controls -->
     <section class="card">
-      <div class="section-label">Randomizer Mode</div>
+      <div class="card-top-head">
+        <div class="section-label">Filter &amp; Randomizer</div>
+        <span class="card-top-hint">Pick multiple categories &amp; difficulties to combine</span>
+      </div>
 
-      <div class="mode-grid" role="tablist">
-        <button class="mode-btn active" data-mode="all" role="tab">
-          <span class="mode-btn-title">All Random</span>
-          <span class="mode-btn-sub">Random category &amp; difficulty</span>
+      <div class="mode-grid">
+        <button type="button" class="mode-btn active" id="modeAllBtn" data-action="all">
+          <div class="mode-btn-top">
+            <span class="mode-btn-title">All Random</span>
+          </div>
+          <span class="mode-btn-sub" id="modeAllSub">Random category &amp; difficulty</span>
         </button>
-        <button class="mode-btn" data-mode="category" role="tab">
-          <span class="mode-btn-title">Pick Category</span>
-          <span class="mode-btn-sub">Lock category, random difficulty</span>
+
+        <button type="button" class="mode-btn" id="modeCatBtn" data-action="category" aria-expanded="false">
+          <div class="mode-btn-top">
+            <span class="mode-btn-title">Pick Categories</span>
+            <span class="mode-btn-right">
+              <span class="mode-count-pill" id="catCountPill"></span>
+              <svg class="mode-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </span>
+          </div>
+          <span class="mode-btn-sub">Select one or more patterns</span>
         </button>
-        <button class="mode-btn" data-mode="difficulty" role="tab">
-          <span class="mode-btn-title">Pick Difficulty</span>
-          <span class="mode-btn-sub">Lock difficulty, random category</span>
-        </button>
-        <button class="mode-btn" data-mode="custom" role="tab">
-          <span class="mode-btn-title">Custom</span>
-          <span class="mode-btn-sub">Filter category &amp; difficulty</span>
+
+        <button type="button" class="mode-btn" id="modeDiffBtn" data-action="difficulty" aria-expanded="false">
+          <div class="mode-btn-top">
+            <span class="mode-btn-title">Pick Difficulties</span>
+            <span class="mode-btn-right">
+              <span class="mode-count-pill" id="diffCountPill"></span>
+              <svg class="mode-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </span>
+          </div>
+          <span class="mode-btn-sub">Select Easy, Medium, or Hard</span>
         </button>
       </div>
 
@@ -867,8 +1141,8 @@
         <div class="filter-head">
           <span class="section-label" id="catPromptLabel">Categories</span>
           <div class="mini-actions">
-            <button class="text-btn" id="selectAllCats">Select All</button>
-            <button class="text-btn" id="clearCats">Clear</button>
+            <button type="button" class="text-btn" id="selectAllCats">Select All</button>
+            <button type="button" class="text-btn" id="clearCats">Clear</button>
           </div>
         </div>
         <div class="chip-group" id="categoryChips"></div>
@@ -879,11 +1153,32 @@
         <div class="filter-head">
           <span class="section-label" id="diffPromptLabel">Difficulty</span>
           <div class="mini-actions">
-            <button class="text-btn" id="selectAllDiffs">Select All</button>
-            <button class="text-btn" id="clearDiffs">Clear</button>
+            <button type="button" class="text-btn" id="selectAllDiffs">Select All</button>
+            <button type="button" class="text-btn" id="clearDiffs">Clear</button>
           </div>
         </div>
         <div class="chip-group" id="difficultyChips"></div>
+      </div>
+
+      <!-- Always-visible Active Selection Summary -->
+      <div class="criteria-summary" id="criteriaSummary" aria-live="polite">
+        <div class="criteria-head">
+          <div class="criteria-head-left">
+            <span class="section-label">Your Selection</span>
+            <span class="criteria-mode-badge" id="criteriaModeBadge">All Random</span>
+          </div>
+          <button type="button" class="text-btn" id="clearAllCriteria" style="display: none;">Clear all</button>
+        </div>
+        <div class="criteria-rows">
+          <div class="criteria-row">
+            <span class="criteria-row-label">Categories</span>
+            <div class="criteria-tags" id="selectedCatTags"></div>
+          </div>
+          <div class="criteria-row">
+            <span class="criteria-row-label">Difficulties</span>
+            <div class="criteria-tags" id="selectedDiffTags"></div>
+          </div>
+        </div>
       </div>
 
       <!-- Secondary Controls -->
@@ -2129,7 +2424,10 @@
     let flatQuestions = [];
 
     const state = {
-      mode: "all",              // 'all' | 'category' | 'difficulty' | 'custom'
+      openPanels: {
+        category: false,
+        difficulty: false
+      },
       selectedCats: new Set(),  // category ids
       selectedDiffs: new Set(), // 'Easy' | 'Medium' | 'Hard'
       drawCount: 1,             // 1 | 3 | 5
@@ -2141,6 +2439,7 @@
       search: ""
     };
 
+    const DIFFICULTIES = ["Easy", "Medium", "Hard"];
     const $ = (id) => document.getElementById(id);
 
     function showToast(msg) {
@@ -2168,7 +2467,9 @@
     function hydrateData(data) {
       rawData = data;
       flatQuestions = [];
+      const validCatIds = new Set();
       for (const cat of data.categories) {
+        validCatIds.add(cat.id);
         for (const q of cat.questions) {
           flatQuestions.push({
             ...q,
@@ -2179,13 +2480,20 @@
         }
       }
 
+      for (const id of [...state.selectedCats]) {
+        if (!validCatIds.has(id)) state.selectedCats.delete(id);
+      }
+
+      const eyebrow = document.querySelector(".brand-eyebrow");
+      if (eyebrow) {
+        eyebrow.textContent = `${data.categories.length} Categories · ${flatQuestions.length} LeetCode Problems`;
+      }
+
       state.seenIds.clear();
       state.history = [];
       state.currentDraw = [];
 
-      renderCategoryChips();
-      renderDifficultyChips();
-      updatePoolStatus();
+      syncFilterUI();
       renderBrowse();
       renderHistory();
       renderResult();
@@ -2212,14 +2520,12 @@
 
     function getMatchingPool() {
       return flatQuestions.filter((q) => {
-        if (state.mode === "category" || state.mode === "custom") {
-          if (state.selectedCats.size > 0 && !state.selectedCats.has(q.categoryId)) {
-            return false;
-          }
+        if (state.selectedCats.size > 0 && !state.selectedCats.has(q.categoryId)) {
+          return false;
         }
-        if (state.mode === "difficulty" || state.mode === "custom") {
+        if (state.selectedDiffs.size > 0) {
           const effDiff = getDisplayProblem(q).difficulty;
-          if (state.selectedDiffs.size > 0 && !state.selectedDiffs.has(effDiff)) {
+          if (!state.selectedDiffs.has(effDiff)) {
             return false;
           }
         }
@@ -2231,43 +2537,66 @@
       return arr[Math.floor(Math.random() * arr.length)];
     }
 
-    function drawOneFromPool(availablePool) {
+    function formatSelectionNote(totalMatchingCount, q, effDiff) {
+      const hasCats = state.selectedCats.size > 0;
+      const hasDiffs = state.selectedDiffs.size > 0;
+
+      const selectedCatNames = rawData.categories
+        .filter((c) => state.selectedCats.has(c.id))
+        .map((c) => c.name);
+      const selectedDiffList = DIFFICULTIES.filter((d) => state.selectedDiffs.has(d));
+
+      const catLabel = selectedCatNames.length <= 2
+        ? selectedCatNames.join(", ")
+        : `${selectedCatNames.length} Categories`;
+      const diffLabel = selectedDiffList.join(", ");
+
+      if (hasCats && hasDiffs) {
+        return `Combined · ${catLabel} × ${diffLabel} · ${totalMatchingCount} matching`;
+      }
+      if (hasCats) {
+        return `Categories (${catLabel}) · Random Difficulty (${effDiff})`;
+      }
+      if (hasDiffs) {
+        return `Difficulties (${diffLabel}) · Random Category (${q.categoryName})`;
+      }
+      return `All Random · ${q.categoryName} · ${effDiff}`;
+    }
+
+    function drawOneFromPool(availablePool, totalMatchingCount) {
       if (availablePool.length === 0) return null;
 
-      if (state.mode === "category") {
+      const hasCats = state.selectedCats.size > 0;
+      const hasDiffs = state.selectedDiffs.size > 0;
+
+      if (hasCats && !hasDiffs) {
         const diffs = [...new Set(availablePool.map((q) => getDisplayProblem(q).difficulty))];
         const rolledDiff = pickRandom(diffs);
         const sub = availablePool.filter((q) => getDisplayProblem(q).difficulty === rolledDiff);
         const q = pickRandom(sub);
         return {
           question: q,
-          note: `Picked Category · Random Difficulty (${rolledDiff})`
+          note: formatSelectionNote(totalMatchingCount, q, rolledDiff)
         };
       }
 
-      if (state.mode === "difficulty") {
+      if (!hasCats && hasDiffs) {
         const cats = [...new Set(availablePool.map((q) => q.categoryId))];
         const rolledCatId = pickRandom(cats);
         const sub = availablePool.filter((q) => q.categoryId === rolledCatId);
         const q = pickRandom(sub);
+        const effDiff = getDisplayProblem(q).difficulty;
         return {
           question: q,
-          note: `Picked Difficulty · Random Category (${q.categoryName})`
-        };
-      }
-
-      if (state.mode === "all") {
-        const q = pickRandom(availablePool);
-        return {
-          question: q,
-          note: `All Random · ${q.categoryName} · ${getDisplayProblem(q).difficulty}`
+          note: formatSelectionNote(totalMatchingCount, q, effDiff)
         };
       }
 
       const q = pickRandom(availablePool);
+      const effDiff = getDisplayProblem(q).difficulty;
       return {
         question: q,
-        note: `Custom Filter · Drawn from ${availablePool.length} matching problems`
+        note: formatSelectionNote(totalMatchingCount, q, effDiff)
       };
     }
 
@@ -2300,7 +2629,7 @@
           workingPool = pool.filter((q) => !chosenIds.has(q.id));
           didResetDeck = true;
         }
-        const pick = drawOneFromPool(workingPool);
+        const pick = drawOneFromPool(workingPool, pool.length);
         if (!pick) break;
         picks.push(pick);
         state.seenIds.add(pick.question.id);
@@ -2324,16 +2653,21 @@
     function renderCategoryChips() {
       const wrap = $("categoryChips");
       wrap.innerHTML = "";
+      const filterByDiff = state.selectedDiffs.size > 0;
       for (const cat of rawData.categories) {
+        const matchCount = filterByDiff
+          ? cat.questions.filter((q) => state.selectedDiffs.has(getDisplayProblem(q).difficulty)).length
+          : cat.questions.length;
+        const isSelected = state.selectedCats.has(cat.id);
         const btn = document.createElement("button");
         btn.type = "button";
-        btn.className = "chip" + (state.selectedCats.has(cat.id) ? " selected" : "");
-        btn.innerHTML = `<span class="chip-num">${cat.id}</span><span>${cat.name}</span><span class="chip-count">${cat.questions.length}</span>`;
+        btn.className = "chip" + (isSelected ? " selected" : "") + (matchCount === 0 && !isSelected ? " muted" : "");
+        btn.setAttribute("aria-pressed", String(isSelected));
+        btn.innerHTML = `<span class="chip-num">${cat.id}</span><span>${cat.name}</span><span class="chip-count">${matchCount}</span>`;
         btn.addEventListener("click", () => {
           if (state.selectedCats.has(cat.id)) state.selectedCats.delete(cat.id);
           else state.selectedCats.add(cat.id);
-          renderCategoryChips();
-          updatePoolStatus();
+          syncFilterUI();
         });
         wrap.appendChild(btn);
       }
@@ -2343,43 +2677,155 @@
       const wrap = $("difficultyChips");
       wrap.innerHTML = "";
       const counts = { Easy: 0, Medium: 0, Hard: 0 };
+      const filterByCat = state.selectedCats.size > 0;
       for (const q of flatQuestions) {
+        if (filterByCat && !state.selectedCats.has(q.categoryId)) continue;
         counts[getDisplayProblem(q).difficulty]++;
       }
-      for (const diff of ["Easy", "Medium", "Hard"]) {
+      for (const diff of DIFFICULTIES) {
+        const isSelected = state.selectedDiffs.has(diff);
         const btn = document.createElement("button");
         btn.type = "button";
-        btn.className = "chip diff-chip" + (state.selectedDiffs.has(diff) ? " selected" : "");
+        btn.className = "chip diff-chip" + (isSelected ? " selected" : "") + (counts[diff] === 0 && !isSelected ? " muted" : "");
+        btn.setAttribute("aria-pressed", String(isSelected));
         btn.innerHTML = `<span>${diff}</span><span class="chip-count">${counts[diff]}</span>`;
         btn.addEventListener("click", () => {
           if (state.selectedDiffs.has(diff)) state.selectedDiffs.delete(diff);
           else state.selectedDiffs.add(diff);
-          renderDifficultyChips();
-          updatePoolStatus();
+          syncFilterUI();
         });
         wrap.appendChild(btn);
       }
     }
 
-    function updateModeUI() {
-      document.querySelectorAll(".mode-btn").forEach((b) => {
-        b.classList.toggle("active", b.dataset.mode === state.mode);
-      });
+    function renderSelectionSummary() {
+      const summary = $("criteriaSummary");
+      const badge = $("criteriaModeBadge");
+      const clearAllBtn = $("clearAllCriteria");
+      const catWrap = $("selectedCatTags");
+      const diffWrap = $("selectedDiffTags");
 
-      const showCats = state.mode === "category" || state.mode === "custom";
-      const showDiffs = state.mode === "difficulty" || state.mode === "custom";
+      const hasCats = state.selectedCats.size > 0;
+      const hasDiffs = state.selectedDiffs.size > 0;
+      const hasFilters = hasCats || hasDiffs;
 
-      $("categoryBlock").classList.toggle("hidden", !showCats);
-      $("difficultyBlock").classList.toggle("hidden", !showDiffs);
+      summary.classList.toggle("has-filters", hasFilters);
+      clearAllBtn.style.display = hasFilters ? "" : "none";
 
-      $("catPromptLabel").textContent = state.mode === "category"
-        ? "Categories (difficulty randomized)"
-        : "Categories";
+      if (hasCats && hasDiffs) {
+        badge.textContent = "Combined Filter";
+      } else if (hasCats) {
+        badge.textContent = "Categories Filtered";
+      } else if (hasDiffs) {
+        badge.textContent = "Difficulties Filtered";
+      } else {
+        badge.textContent = "All Random";
+      }
 
-      $("diffPromptLabel").textContent = state.mode === "difficulty"
-        ? "Difficulty (category randomized)"
-        : "Difficulty";
+      // Render chosen categories
+      catWrap.innerHTML = "";
+      if (!hasCats) {
+        const anyBtn = document.createElement("button");
+        anyBtn.type = "button";
+        anyBtn.className = "any-tag";
+        anyBtn.title = "Click to pick categories";
+        anyBtn.textContent = `All (${rawData.categories.length} patterns)`;
+        anyBtn.addEventListener("click", () => {
+          state.openPanels.category = true;
+          syncFilterUI();
+        });
+        catWrap.appendChild(anyBtn);
+      } else {
+        for (const cat of rawData.categories) {
+          if (!state.selectedCats.has(cat.id)) continue;
+          const tag = document.createElement("button");
+          tag.type = "button";
+          tag.className = "selected-tag";
+          tag.setAttribute("aria-label", `Remove ${cat.name}`);
+          tag.title = `Remove ${cat.name}`;
+          tag.innerHTML = `<span class="chip-num">${cat.id}</span><span>${cat.name}</span><span class="selected-tag-x" aria-hidden="true">×</span>`;
+          tag.addEventListener("click", () => {
+            state.selectedCats.delete(cat.id);
+            syncFilterUI();
+          });
+          catWrap.appendChild(tag);
+        }
+      }
 
+      // Render chosen difficulties
+      diffWrap.innerHTML = "";
+      if (!hasDiffs) {
+        const anyBtn = document.createElement("button");
+        anyBtn.type = "button";
+        anyBtn.className = "any-tag";
+        anyBtn.title = "Click to pick difficulties";
+        anyBtn.textContent = "All (Easy, Medium, Hard)";
+        anyBtn.addEventListener("click", () => {
+          state.openPanels.difficulty = true;
+          syncFilterUI();
+        });
+        diffWrap.appendChild(anyBtn);
+      } else {
+        for (const diff of DIFFICULTIES) {
+          if (!state.selectedDiffs.has(diff)) continue;
+          const tag = document.createElement("button");
+          tag.type = "button";
+          tag.className = `selected-tag diff-${diff}`;
+          tag.setAttribute("aria-label", `Remove ${diff}`);
+          tag.title = `Remove ${diff}`;
+          tag.innerHTML = `<span>${diff}</span><span class="selected-tag-x" aria-hidden="true">×</span>`;
+          tag.addEventListener("click", () => {
+            state.selectedDiffs.delete(diff);
+            syncFilterUI();
+          });
+          diffWrap.appendChild(tag);
+        }
+      }
+    }
+
+    function syncFilterUI() {
+      const catCount = state.selectedCats.size;
+      const diffCount = state.selectedDiffs.size;
+      const hasFilters = catCount > 0 || diffCount > 0;
+      const anyPanelOpen = state.openPanels.category || state.openPanels.difficulty;
+
+      // Top cards
+      $("modeAllBtn").classList.toggle("active", !hasFilters && !anyPanelOpen);
+      $("modeAllSub").textContent = hasFilters
+        ? "Click to reset all filters"
+        : "Random category & difficulty";
+
+      const catBtn = $("modeCatBtn");
+      catBtn.classList.toggle("active", state.openPanels.category);
+      catBtn.classList.toggle("has-selection", catCount > 0);
+      catBtn.setAttribute("aria-expanded", String(state.openPanels.category));
+      const catPill = $("catCountPill");
+      catPill.classList.toggle("visible", catCount > 0);
+      catPill.textContent = `${catCount} selected`;
+
+      const diffBtn = $("modeDiffBtn");
+      diffBtn.classList.toggle("active", state.openPanels.difficulty);
+      diffBtn.classList.toggle("has-selection", diffCount > 0);
+      diffBtn.setAttribute("aria-expanded", String(state.openPanels.difficulty));
+      const diffPill = $("diffCountPill");
+      diffPill.classList.toggle("visible", diffCount > 0);
+      diffPill.textContent = `${diffCount} selected`;
+
+      // Filter blocks
+      $("categoryBlock").classList.toggle("hidden", !state.openPanels.category);
+      $("difficultyBlock").classList.toggle("hidden", !state.openPanels.difficulty);
+
+      $("catPromptLabel").textContent = catCount > 0
+        ? `Categories · ${catCount} selected`
+        : "Categories · Pick one or more";
+
+      $("diffPromptLabel").textContent = diffCount > 0
+        ? `Difficulties · ${diffCount} selected`
+        : "Difficulties · Pick one or more";
+
+      renderCategoryChips();
+      renderDifficultyChips();
+      renderSelectionSummary();
       updatePoolStatus();
     }
 
@@ -2389,7 +2835,10 @@
         ? pool.filter((q) => !state.seenIds.has(q.id)).length
         : pool.length;
 
-      $("poolCount").textContent = pool.length;
+      const countEl = $("poolCount");
+      countEl.textContent = pool.length;
+      countEl.classList.toggle("empty", pool.length === 0);
+
       if (pool.length === 0) {
         $("poolLabel").textContent = "no questions match these filters";
       } else if (state.noRepeats && remaining < pool.length) {
@@ -2540,35 +2989,51 @@
     }
 
     // Event Listeners
-    document.querySelectorAll(".mode-btn").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        state.mode = btn.dataset.mode;
-        updateModeUI();
-      });
+    $("modeAllBtn").addEventListener("click", () => {
+      const hadFilters = state.selectedCats.size > 0 || state.selectedDiffs.size > 0;
+      state.selectedCats.clear();
+      state.selectedDiffs.clear();
+      state.openPanels.category = false;
+      state.openPanels.difficulty = false;
+      syncFilterUI();
+      if (hadFilters) showToast("Filters reset to All Random");
+    });
+
+    $("modeCatBtn").addEventListener("click", () => {
+      state.openPanels.category = !state.openPanels.category;
+      syncFilterUI();
+    });
+
+    $("modeDiffBtn").addEventListener("click", () => {
+      state.openPanels.difficulty = !state.openPanels.difficulty;
+      syncFilterUI();
+    });
+
+    $("clearAllCriteria").addEventListener("click", () => {
+      state.selectedCats.clear();
+      state.selectedDiffs.clear();
+      syncFilterUI();
+      showToast("Cleared all selected criteria");
     });
 
     $("selectAllCats").addEventListener("click", () => {
       for (const c of rawData.categories) state.selectedCats.add(c.id);
-      renderCategoryChips();
-      updatePoolStatus();
+      syncFilterUI();
     });
 
     $("clearCats").addEventListener("click", () => {
       state.selectedCats.clear();
-      renderCategoryChips();
-      updatePoolStatus();
+      syncFilterUI();
     });
 
     $("selectAllDiffs").addEventListener("click", () => {
-      ["Easy", "Medium", "Hard"].forEach((d) => state.selectedDiffs.add(d));
-      renderDifficultyChips();
-      updatePoolStatus();
+      DIFFICULTIES.forEach((d) => state.selectedDiffs.add(d));
+      syncFilterUI();
     });
 
     $("clearDiffs").addEventListener("click", () => {
       state.selectedDiffs.clear();
-      renderDifficultyChips();
-      updatePoolStatus();
+      syncFilterUI();
     });
 
     $("countSelector").querySelectorAll(".seg-btn").forEach((btn) => {
@@ -2586,8 +3051,7 @@
 
     $("freeOnlyToggle").addEventListener("change", (e) => {
       state.preferFree = e.target.checked;
-      renderDifficultyChips();
-      updatePoolStatus();
+      syncFilterUI();
       renderResult(false);
       renderBrowse();
     });
